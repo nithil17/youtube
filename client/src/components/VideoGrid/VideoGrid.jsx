@@ -1,8 +1,23 @@
 import React from 'react'
+import VideoCard from '../VideoCard/VideoCard'
+import { videos } from '../../utils/videos'
 
 const VideoGrid = () => {
   return (
-    <div>VideoGrid</div>
+    <>
+        {
+            videos.map((video)=>{
+                 return(
+                    <VideoCard 
+                    key={video.id}
+                    video={video}
+                    />
+                 )
+            }
+           
+        )
+        }
+    </>
   )
 }
 
