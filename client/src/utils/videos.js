@@ -2,17 +2,28 @@ export const videos = [
   {
     id: 1,
     title: "Learn React in 30 Minutes",
+    thumbnail:
+      "https://picsum.photos/300/200?1",
     channel: "Code Academy",
     views: "15K",
-    thumbnail:
-      "https://picsum.photos/400/250"
+    category: "React"
   },
   {
     id: 2,
     title: "JavaScript Interview",
-    channel: "Dev Talks",
-    views: "42K",
     thumbnail:
-      "https://picsum.photos/400/251"
+      "https://picsum.photos/300/200?2",
+    channel: "Dev Talks",
+    views: "25K",
+    category: "JavaScript"
+  },
+  {
+    id: 3,
+    title: "Node Crash Course",
+    thumbnail:
+      "https://picsum.photos/300/200?3",
+    channel: "Backend Master",
+    views: "40K",
+    category: "Node"
   }
 ];

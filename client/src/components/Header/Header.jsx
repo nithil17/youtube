@@ -2,8 +2,11 @@ import React from 'react'
 
 const Header = () => {
   return (
-    <div>Header</div>
+    <header className='header'>
+      <h2>YouTube Clone</h2>
+    </header>
+   
   )
 }
 
-export default Header
+export default Header;

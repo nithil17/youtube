@@ -1,13 +1,12 @@
 
 import './App.css'
+import Home from './pages/Home/Home';
 
 function App() {
 
 
   return (
-    <div>
-      <h1>YouTube Clone</h1>
-    </div>
+    <Home/>
   )
 }
 
