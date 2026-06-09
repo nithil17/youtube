@@ -1,9 +1,38 @@
-import React from 'react'
+import React, { useState } from 'react'
 
 const Header = () => {
+
+  const [searchText, setSearchText] = useState("");
+   const handleChange = (event) => {
+    setSearchText(event.target.value);
+
+    console.log(event.target.value);
+  };
+
   return (
     <header className='header'>
-      <h2>YouTube Clone</h2>
+
+      <div className='header-left'>
+         ☰
+         <h2>YouTube</h2>
+
+      </div>
+      <div className='header-center'>
+        <input 
+          value={searchText}
+          onChange={handleChange }
+          placeholder='Search' 
+        />
+        <button>Search</button>
+        <p>{searchText}</p>
+
+      </div>
+      <div className='header-right'>
+        <button>
+          Sign In
+        </button>
+      </div>
+      
     </header>
    
   )
