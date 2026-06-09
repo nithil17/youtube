@@ -1,0 +1,28 @@
+.sidebar{
+
+    width:220px;
+
+    padding:15px;
+
+}
+.sidebar-item{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:15px;
+
+    padding:12px;
+
+    cursor:pointer;
+
+    border-radius:10px;
+
+}
+
+.sidebar-item:hover{
+
+    background-color:#f2f2f2;
+
+}
