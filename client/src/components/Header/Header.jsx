@@ -1,8 +1,8 @@
 import React, { useState } from 'react'
 
-const Header = () => {
+const Header = (searchText , setSearchText) => {
 
-  const [searchText, setSearchText] = useState("");
+  
    const handleChange = (event) => {
     setSearchText(event.target.value);
 
@@ -24,7 +24,7 @@ const Header = () => {
           placeholder='Search' 
         />
         <button>Search</button>
-        <p>{searchText}</p>
+       
 
       </div>
       <div className='header-right'>
