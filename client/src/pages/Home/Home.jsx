@@ -17,7 +17,8 @@ const Home = () => {
     <p>Current Search: {searchText}</p>
     <Sidebar/>
     <FilterBar/>
-    <VideoGrid/>
+    <VideoGrid 
+        searchText={searchText}/>
     </>
   )
 }
