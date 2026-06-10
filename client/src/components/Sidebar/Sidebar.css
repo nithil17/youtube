@@ -22,11 +22,19 @@
     cursor:pointer;
 
     border-radius:10px;
+    
+    margin-bottom:5px;
 
 }
 
 .sidebar-item:hover{
 
     background-color:#f2f2f2;
+
+}
+
+.sidebar-item svg{
+
+    font-size:20px;
 
 }

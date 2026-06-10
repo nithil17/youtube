@@ -10,9 +10,7 @@ const Header = ({searchText , setSearchText}  ) => {
     <header className='header'>
 
       <div className='header-left'>
-         ☰
-       
-
+         
          <FaBars className="menu-icon"/>
            <h2 className='logo'>
             YouTube

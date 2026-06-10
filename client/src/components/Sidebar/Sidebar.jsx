@@ -1,35 +1,47 @@
 import React from 'react'
 import "./Sidebar.css"
+import {
+    FaHome,
+    FaHistory,
+    FaThumbsUp,
+    FaSubscript
+} from "react-icons/fa";
+
+import { MdSubscriptions } from "react-icons/md";
 
 export const Sidebar = () => {
   return (
     <aside className='sidebar'>
         <div className='sidebar-item'>
+            <FaHome/>
             <span>
-                🏠
+                Home
             </span>
-            <p>Home</p>
+            
 
         </div>
         <div className='sidebar-item'>
+            <MdSubscriptions/>
             <span>
-                🎬
+                Subscription
             </span>
-            <p>Subscription</p>
+            
 
         </div>
         <div className='sidebar-item'>
+            <FaHistory/>
             <span>
-                🕒
+                History
             </span>
-            <p>History</p>
+           
 
         </div>
         <div className='sidebar-item'>
+            <FaThumbsUp/>
             <span>
-                👍
+                Liked Videos
             </span>
-            <p>Liked Videos</p>
+           
 
         </div>
 
