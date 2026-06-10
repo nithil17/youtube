@@ -1,28 +1,29 @@
 
 import './App.css'
 import Home from './pages/Home/Home';
-import { BrowserRouter, Route } from "react-router-dom";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
+import VideoPlayer from './pages/VideoPlayer/VideoPlayer';
 
-<BrowserRouter>
-  <Routes>
-    <Route
-      path = "/"
-      element = {Home}
-    />
 
-    <Route
-      path='/watch/:id'
-      element={<VideoPlayer />}
-    />
-    
-  </Routes>
-</BrowserRouter>
 
 function App() {
 
 
   return (
-    <Home/>
+    <BrowserRouter>
+      <Routes>
+        <Route
+          path="/"
+          element={<Home />}
+        />
+
+        <Route
+          path='/watch/:id'
+          element={<VideoPlayer />}
+        />
+
+      </Routes>
+    </BrowserRouter>
   )
 }
 
