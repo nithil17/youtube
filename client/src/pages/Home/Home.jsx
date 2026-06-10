@@ -9,16 +9,21 @@ const Home = () => {
 
     const [searchText, setSearchText] = useState("");
     const [selectedCategory, setSelectedCategory] = useState("All");
+    const [isSidebarOpen, setIsSidebarOpen] = useState(true);
     
   return (
     <>
     <Header
         searchText={searchText}
         setSearchText = {setSearchText}
+        isSidebarOpen={isSidebarOpen}
+        setIsSidebarOpen={setIsSidebarOpen}
     />
         <main className='home-container'>
     
-            <Sidebar/>
+            <Sidebar
+                isSidebarOpen={isSidebarOpen}
+            />
             <section className='content'>
                 <FilterBar 
                     selectedCategory = {selectedCategory}

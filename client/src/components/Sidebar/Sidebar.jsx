@@ -9,41 +9,77 @@ import {
 
 import { MdSubscriptions } from "react-icons/md";
 
-export const Sidebar = () => {
+export const Sidebar = ({
+    isSidebarOpen, 
+    
+}) => {
+
+const menuItems = [
+
+    {
+        id:1,
+        label:"Home",
+        icon:FaHome
+    },
+
+    {
+        id:2,
+        label:"Subscription",
+        icon:MdSubscriptions
+    },
+
+    {
+        id:3,
+        label:"History",
+        icon:FaHistory
+    },
+
+    {
+        id:4,
+        label:"Liked Videos",
+        icon:FaThumbsUp
+    }
+
+];
+
   return (
-    <aside className='sidebar'>
-        <div className='sidebar-item'>
-            <FaHome/>
-            <span>
-                Home
-            </span>
-            
+    <aside 
+        
+        className={
+            isSidebarOpen
+            ?
+            "sidebar"
+            : "sidebar collapsed"
+        }
+        
+    >
 
-        </div>
-        <div className='sidebar-item'>
-            <MdSubscriptions/>
-            <span>
-                Subscription
-            </span>
-            
+       {
+        menuItems.map((item)=>{
+            const Icon = item.icon;
 
-        </div>
-        <div className='sidebar-item'>
-            <FaHistory/>
-            <span>
-                History
-            </span>
-           
+            return(
+                <div
+                    className="sidebar-item"
+                    key={item.id}
+                >
+                    <Icon/>
+                    {
+                        isSidebarOpen &&
+                         <span>
 
-        </div>
-        <div className='sidebar-item'>
-            <FaThumbsUp/>
-            <span>
-                Liked Videos
-            </span>
-           
+                            {item.label}
 
-        </div>
+                        </span>
+
+                    }
+
+                </div>
+            )
+        })
+       }
+
+    
 
     </aside>
   )

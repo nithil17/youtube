@@ -1,12 +1,14 @@
 .sidebar{
 
-  width:220px;
+    width:220px;
 
     flex-shrink:0;
 
     padding:15px;
 
     border-right:1px solid #e5e5e5;
+
+    transition:0.3s;
 
 }
 .sidebar-item{
@@ -36,5 +38,11 @@
 .sidebar-item svg{
 
     font-size:20px;
+
+}
+
+.sidebar.collapsed{
+
+    width:70px;
 
 }
