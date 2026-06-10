@@ -13,5 +13,64 @@
 }
 
 .head-center {
-    margin-right:10px;
+   display:flex;
+
+    align-items:center;
+
+    gap:10px;
+}
+
+.header-center input{
+
+    width:450px;
+
+    padding:10px 15px;
+
+    border:1px solid #d3d3d3;
+
+    border-radius:999px;
+
+    outline:none;
+
+}
+
+.header-center input{
+
+    width:450px;
+
+    padding:10px 15px;
+
+    border:1px solid #d3d3d3;
+
+    border-radius:999px;
+
+    outline:none;
+
+}
+.header-center button:hover{
+
+    background:#e2e2e2;
+
+}
+
+.signin-btn{
+
+    padding:10px 18px;
+
+    border:1px solid #3ea6ff;
+
+    color:#3ea6ff;
+
+    background:white;
+
+    border-radius:999px;
+
+    cursor:pointer;
+
+}
+
+.signin-btn:hover{
+
+    background:#e8f4ff;
+
 }

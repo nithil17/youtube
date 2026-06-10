@@ -1,5 +1,7 @@
 import React, { useState } from 'react'
 import "./Header.css"
+import {FaBars} from "react-icons/fa"
+import {FaSearch} from "react-icons/fa"
 
 const Header = ({searchText , setSearchText}  ) => {
 
@@ -9,9 +11,14 @@ const Header = ({searchText , setSearchText}  ) => {
 
       <div className='header-left'>
          ☰
-         <h2>YouTube</h2>
+       
 
+         <FaBars className="menu-icon"/>
+           <h2 className='logo'>
+            YouTube
+            </h2>
       </div>
+
       <div className='header-center'>
         <input 
           value={searchText}
@@ -19,13 +26,19 @@ const Header = ({searchText , setSearchText}  ) => {
             setSearchText(event.target.value)
           }
           placeholder='Search' 
+          type='text'
         />
-        <button>Search</button>
+        
+                <button>
+
+                    <FaSearch />
+
+                </button>
        
 
       </div>
       <div className='header-right'>
-        <button>
+        <button className='signin-btn'>
           Sign In
         </button>
       </div>
