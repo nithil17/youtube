@@ -1,0 +1,11 @@
+.filter-bar{
+
+    display:flex;
+
+    gap:10px;
+
+    overflow-x:auto;
+
+    padding:15px 0;
+
+}
