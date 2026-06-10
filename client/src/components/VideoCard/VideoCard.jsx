@@ -1,17 +1,23 @@
 import React from 'react'
+import "./VideoCard.css"
 
 const VideoCard = ({video}) => {
   return (
-    <div>
+    <div className="video-card">
         <img 
-        src={video.thumbnail} 
-        alt={video.title}
+          src={video.thumbnail} 
+          alt={video.title}
+          className='video-thumbnail'
         />
-          <h3>{video.title}</h3>
+        <div>
+           <h3>{video.title}</h3>
 
             <p>{video.channel}</p>
 
             <p>{video.views} views</p>
+
+        </div>
+         
     </div>
   )
 }

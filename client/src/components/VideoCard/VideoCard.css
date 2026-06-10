@@ -1,0 +1,48 @@
+.video-card{
+
+    display:flex;
+
+    flex-direction:column;
+
+    cursor:pointer;
+
+}
+
+.video-thumbnail{
+
+    width:100%;
+
+    border-radius:12px;
+
+    object-fit:cover;
+
+}
+
+.video-info{
+
+    padding:10px 0;
+
+}
+
+.video-info h3{
+
+    font-size:16px;
+
+    margin-bottom:6px;
+
+}
+
+.video-info p{
+
+    color:#606060;
+
+    font-size:14px;
+
+}
+.video-card:hover{
+
+    transform:scale(1.02);
+
+    transition:0.3s;
+
+}

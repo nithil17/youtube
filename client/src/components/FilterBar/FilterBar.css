@@ -9,3 +9,33 @@
     padding:15px 0;
 
 }
+
+.filter-btn{
+
+    border:none;
+
+    padding:8px 18px;
+
+    border-radius:8px;
+
+    background:#f2f2f2;
+
+    cursor:pointer;
+
+    white-space:nowrap;
+
+}
+
+.filter-btn:hover{
+
+    background:#dcdcdc;
+
+}
+
+.filter-btn.active{
+
+    background:black;
+
+    color:white;
+
+}
