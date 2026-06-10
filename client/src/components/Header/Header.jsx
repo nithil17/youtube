@@ -3,7 +3,15 @@ import "./Header.css"
 import {FaBars} from "react-icons/fa"
 import {FaSearch} from "react-icons/fa"
 
-const Header = ({searchText , setSearchText}  ) => {
+const Header = ({
+  searchText,
+
+    setSearchText,
+
+    isSidebarOpen,
+
+    setIsSidebarOpen
+}  ) => {
 
 
   return (
@@ -11,11 +19,17 @@ const Header = ({searchText , setSearchText}  ) => {
 
       <div className='header-left'>
          
-         <FaBars className="menu-icon"/>
+         <FaBars 
+          className="menu-icon"
+          onClick={() =>
+          setIsSidebarOpen(!isSidebarOpen)
+          }
+
+         />
            <h2 className='logo'>
             YouTube
             </h2>
-      </div>
+        </div>
 
       <div className='header-center'>
         <input 

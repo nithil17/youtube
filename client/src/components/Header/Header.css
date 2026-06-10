@@ -74,3 +74,23 @@
     background:#e8f4ff;
 
 }
+
+.menu-icon{
+
+    font-size:20px;
+
+    padding:10px;
+
+    border-radius:50%;
+
+    cursor:pointer;
+
+    transition:background-color 0.2s ease;
+
+}
+
+.menu-icon:hover{
+
+    background-color:#f2f2f2;
+
+}
