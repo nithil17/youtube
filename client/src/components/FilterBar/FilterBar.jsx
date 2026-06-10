@@ -1,30 +1,36 @@
 import React from 'react'
 import "./FilterBar.css"
 import { categories } from '../../utils/categories'
+import { useState } from 'react'
 
-const FilterBar = () => {
-  const [selectedCategory, setSelectedCategory] = useState("All");
+const FilterBar = ({
+
+  selectedCategory, 
+  setSelectedCategory
+  }) => {
+  
 
   return (
     <div className='filter-bar'>
 
       {
         categories.map((category)=>{
-          return(
-            <button 
+          return( <button 
             key={category}
 
-            className={selectedCategory===category ? 
+            className={
+              selectedCategory===category ? 
               "filter-btn active"
               : "filter-btn"
             }
-            onClick={selectedCategory(category)}
+            onClick={()=>setSelectedCategory(category)}
             >
 
               {category}
 
-            </button>
-          );
+            </button>)
+           
+          
         })
       }
       

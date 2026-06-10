@@ -12,23 +12,25 @@
 
 .filter-btn{
 
-    border:none;
+        border:none;
+
+    background:#f2f2f2;
 
     padding:8px 18px;
 
     border-radius:8px;
 
-    background:#f2f2f2;
-
     cursor:pointer;
 
     white-space:nowrap;
+
+    transition:0.2s;
 
 }
 
 .filter-btn:hover{
 
-    background:#dcdcdc;
+    background:#dddddd;
 
 }
 

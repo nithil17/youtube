@@ -3,16 +3,44 @@ import VideoCard from '../VideoCard/VideoCard'
 import { videos } from '../../utils/videos'
 import "./VideoGrid.css"
 
-const VideoGrid = ({searchText}) => {
+const VideoGrid = ({
+    
+    searchText,
+    selectedCategory
+
+}) => {
+
+    console.log(selectedCategory);
+    // adding logic to filter videos according to categories
 
     const filteredVideos = videos.filter((video)=>{
-        return(
-            video.title.toLowerCase().includes(searchText.toLowerCase())||
-            video.channel.toLowerCase().includes(searchText.toLowerCase())
-        );
+
+        const matchesSearch = 
+            video.title
+            .toLowerCase()
+            .includes(searchText.toLowerCase())
+            
+            ||
+
+            video.channel
+            .toLowerCase()
+            .includes(searchText.toLowerCase())
+
+        const matchesCategory = 
+
+            selectedCategory === "All"
+
+            || 
+
+            video.category===selectedCategory;
+        
+
+        return matchesSearch && matchesCategory;
       });
+
+
   return (
-    <div class="video-grid">
+    <div className="video-grid">
         {
             filteredVideos.map((video)=>{
                  return(

@@ -8,6 +8,7 @@ import "./Home.css"
 const Home = () => {
 
     const [searchText, setSearchText] = useState("");
+    const [selectedCategory, setSelectedCategory] = useState("All");
     
   return (
     <>
@@ -19,9 +20,15 @@ const Home = () => {
     
             <Sidebar/>
             <section className='content'>
-                <FilterBar/>
+                <FilterBar 
+                    selectedCategory = {selectedCategory}
+                    setSelectedCategory = { setSelectedCategory}
+                />
                 <VideoGrid 
-                    searchText={searchText}/>
+                    searchText={searchText}
+                    selectedCategory={selectedCategory}
+                />
+                    
             </section>
             
         </main>
