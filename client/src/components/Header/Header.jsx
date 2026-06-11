@@ -1,52 +1,52 @@
 import React, { useState } from 'react'
 import "./Header.css"
-import {FaBars} from "react-icons/fa"
-import {FaSearch} from "react-icons/fa"
+import { FaBars } from "react-icons/fa"
+import { FaSearch } from "react-icons/fa"
 
 const Header = ({
   searchText,
 
-    setSearchText,
+  setSearchText,
 
-    isSidebarOpen,
+  isSidebarOpen,
 
-    setIsSidebarOpen
-}  ) => {
+  setIsSidebarOpen
+}) => {
 
 
   return (
     <header className='header'>
 
       <div className='header-left'>
-         
-         <FaBars 
+
+        <FaBars
           className="menu-icon"
           onClick={() =>
-          setIsSidebarOpen(!isSidebarOpen)
+            setIsSidebarOpen(!isSidebarOpen)
           }
 
-         />
-           <h2 className='logo'>
-            YouTube
-            </h2>
-        </div>
+        />
+        <h2 className='logo'>
+          YouTube
+        </h2>
+      </div>
 
       <div className='header-center'>
-        <input 
+        <input
           value={searchText}
-          onChange={(event)=>
+          onChange={(event) =>
             setSearchText(event.target.value)
           }
-          placeholder='Search' 
+          placeholder='Search'
           type='text'
         />
-        
-                <button>
 
-                    <FaSearch />
+        <button>
 
-                </button>
-       
+          <FaSearch />
+
+        </button>
+
 
       </div>
       <div className='header-right'>
@@ -54,9 +54,9 @@ const Header = ({
           Sign In
         </button>
       </div>
-      
+
     </header>
-   
+
   )
 }
 

@@ -8,7 +8,16 @@ import { Link } from 'react-router-dom';
 
 
 
-const VideoPlayer = () => {
+const VideoPlayer = ({
+  searchText,
+
+  setSearchText,
+
+  isSidebarOpen,
+
+  setIsSidebarOpen
+
+}) => {
   const { id } = useParams()
   const selectedVideo = videos.find((video) => {
     return video.id === Number(id);
@@ -18,7 +27,7 @@ const VideoPlayer = () => {
   })
   return (
     <div>
-      <Header />
+
       <div className="video-player-page">
         <div className="main-video">
           <img
