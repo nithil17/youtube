@@ -1,0 +1,72 @@
+.video-player-page {
+
+    display: flex;
+
+    gap: 30px;
+
+    padding: 20px;
+
+
+
+}
+
+.main-video {
+
+    flex: 3;
+
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 15px;
+
+}
+
+.related-videos {
+
+    flex: 1;
+
+}
+
+.player-thumbnail {
+
+    width: 100%;
+
+    border-radius: 12px;
+
+}
+
+.main-video h2 {
+
+    margin-top: 15px;
+
+    font-weight: 600;
+
+}
+
+.main-video p {
+
+    color: #606060;
+
+    font-size: 15px;
+
+}
+
+.video-info {
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 10px;
+}
+
+.video-meta {
+    
+    display: flex;
+
+    gap: 20px;
+
+    color: #606060;
+
+    font-size: 15px;
+}
