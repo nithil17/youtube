@@ -9,9 +9,6 @@ import CommentSection from '../../components/CommentSection/CommentSection';
 import RelatedVideos from '../../components/RelatedVideos/RelatedVideos';
 
 
-
-
-
 const VideoPlayer = () => {
 
   const { id } = useParams();
@@ -25,8 +22,6 @@ const VideoPlayer = () => {
     return <h2>Video Not Found</h2>;
 
   }
-
-
 
   return (
     <div>
@@ -62,10 +57,6 @@ const VideoPlayer = () => {
         </div>
 
         <RelatedVideos />
-
-
-
-
 
       </div>
     </div>
