@@ -9,7 +9,7 @@ const VideoPlayer = () => {
   const selectedVideo = videos.find((video) => {
     return video.id === Number(id);
   })
-  const relatedVideos = videos.filter((video)=>{
+  const relatedVideos = videos.filter((video) => {
     return video.id !== Number(id);
   })
   return (
@@ -36,16 +36,22 @@ const VideoPlayer = () => {
         <div className="related-videos">
           <h3>Related Videos</h3>
           {
-            relatedVideos.map((video)=>{
+            relatedVideos.map((video) => {
               return (
-                <div key={video.id}>
+                <div
+                  className='related-card'
+                  key={video.id}>
                   <img
-                  src={video.thumbnail}
-                  alt={video.title}
+                    src={video.thumbnail}
+                    alt={video.title}
                   />
+                  <div
+                    className='related-info'
+                  >
+                    <h4>{video.title}</h4>
+                    <p>{video.channel}</p>
+                  </div>
 
-                  <h4>{video.title}</h4>
-                  <p>{video.channel}</p>
 
                 </div>
               )
