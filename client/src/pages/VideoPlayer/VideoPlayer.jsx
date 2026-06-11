@@ -4,6 +4,10 @@ import { videos } from '../../utils/videos';
 import "./VideoPlayer.css"
 import Header from '../../components/Header/Header';
 import { useState } from 'react';
+import { Link } from 'react-router-dom';
+
+
+
 const VideoPlayer = () => {
   const { id } = useParams()
   const selectedVideo = videos.find((video) => {
@@ -26,8 +30,9 @@ const VideoPlayer = () => {
           <div className='video-info'>
             <h2>{selectedVideo.title}</h2>
             <div className='video-meta'>
-              <p>{selectedVideo.channel}</p>
-              <p>{selectedVideo.views} Views</p>
+              <span>{selectedVideo.channel}</span>
+              <span>•</span>
+              <span>{selectedVideo.views} Views</span>
             </div>
           </div>
 
@@ -38,22 +43,28 @@ const VideoPlayer = () => {
           {
             relatedVideos.map((video) => {
               return (
-                <div
-                  className='related-card'
-                  key={video.id}>
-                  <img
-                    src={video.thumbnail}
-                    alt={video.title}
-                  />
+
+                <Link
+                to={`/watch/${video.id}`}
+                className='related-link'
+                >
                   <div
-                    className='related-info'
-                  >
-                    <h4>{video.title}</h4>
-                    <p>{video.channel}</p>
+                    className='related-card'
+                    key={video.id}>
+                    <img
+                      src={video.thumbnail}
+                      alt={video.title}
+                    />
+                    <div
+                      className='related-info'
+                    >
+                      <h4>{video.title}</h4>
+                      <p>{video.channel}</p>
+                    </div>
                   </div>
+                </Link>
 
 
-                </div>
               )
             })
           }
