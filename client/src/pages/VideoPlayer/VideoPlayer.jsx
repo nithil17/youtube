@@ -2,103 +2,46 @@ import React from 'react'
 import { useParams } from "react-router-dom";
 import { videos } from '../../utils/videos';
 import "./VideoPlayer.css"
-import Header from '../../components/Header/Header';
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
+import VideoAction from '../../components/VideoActions/VideoActions';
+import CommentSection from '../../components/CommentSection/CommentSection';
+import RelatedVideos from '../../components/RelatedVideos/RelatedVideos';
 
 
 
 
-const VideoPlayer = ({
-  searchText,
 
-  setSearchText,
+const VideoPlayer = () => {
 
-  isSidebarOpen,
+  const { id } = useParams();
 
-  setIsSidebarOpen
-
-}) => {
-  const { id } = useParams()
   const selectedVideo = videos.find((video) => {
     return video.id === Number(id);
   })
-  const relatedVideos = videos.filter((video) => {
-    return video.id !== Number(id);
-  })
 
-  const [likes, setLikes] = useState(300);
-  const [disLikes, setDislikes] = useState(14);
+  if (!selectedVideo) {
 
-  const [comments, setComments] = useState([
-    {
-      id: 1,
-      user: "Alice",
-      text: "Greate Tutorial"
-    },
-    {
-      id: 2,
-      user: "Bob",
-      text: "Nice Video"
-    },
-    {
-      id: 3,
-      user: "John",
-      text: "Okay Okay"
-    },
-    {
-      id: 4,
-      user: "Smith",
-      text: "Addipoli"
-    }
-  ])
-
-  const [newComment, setNewComment] = useState("");
-
-  const handleAddComment = () => {
-
-    if (newComment.trim() === "") {
-      return;
-    }
-
-    const comment = {
-      id: Date.now(),
-      user: "You",
-      text: newComment
-
-    }
-
-    setComments([
-      ...comments, comment
-    ]);
-
-    setNewComment("");
-
+    return <h2>Video Not Found</h2>;
 
   }
 
-  const handleDeleteComment = (id) => {
-
-    const updateComment = comments.filter((comment) => {
-      return comment.id !== id;
-    })
-
-    setComments(updateComment);
-
-
-  }
 
 
   return (
     <div>
 
       <div className="video-player-page">
+
+        {/* main video card */}
         <div className="main-video">
           <img
             className="player-thumbnail"
             src={selectedVideo.thumbnail}
             alt={selectedVideo.title}
           />
+
+          {/* video info section */}
 
           <div className='video-info'>
             <h2>{selectedVideo.title}</h2>
@@ -109,94 +52,20 @@ const VideoPlayer = ({
             </div>
           </div>
 
-          <div className='video-actions'>
-            <button
-              onClick={() => setLikes(likes + 1)}
-            >👍 {likes}
-            </button>
+          {/* video action like and dislike */}
+          <VideoAction />
 
-            <button
-              onClick={() => setDislikes(disLikes + 1)}
-            >👎 {disLikes}
-            </button>
-          </div>
+          <CommentSection />
 
 
-
-          <div className='comment-input'>
-            <input
-              type="text"
-              placeholder='Add a comment...'
-              value={newComment}
-              onChange={(event) => {
-                setNewComment(event.target.value)
-              }}
-            />
-
-            <button
-              onClick={handleAddComment}
-            >Comment</button>
-          </div>
-
-          <div className='comments-section' >
-            <h3>Comments </h3>
-            {
-              comments.map((comment) => {
-                return (
-                  <div className='comment-card'
-                    key={comment.id}>
-
-                    <div className='comment-header'>
-
-                      <h4>{comment.user}</h4>
-
-                      <button
-                      onClick={()=>handleDeleteComment(comment.id)}
-                      >Delete</button>
-
-                    </div>
-
-                     <p>{comment.text}</p>
-
-                  </div>
-                )
-              })
-            }
-          </div>
 
         </div>
 
-        <div className="related-videos">
-          <h3>Related Videos</h3>
-          {
-            relatedVideos.map((video) => {
-              return (
-
-                <Link
-                  to={`/watch/${video.id}`}
-                  className='related-link'
-                >
-                  <div
-                    className='related-card'
-                    key={video.id}>
-                    <img
-                      src={video.thumbnail}
-                      alt={video.title}
-                    />
-                    <div
-                      className='related-info'
-                    >
-                      <h4>{video.title}</h4>
-                      <p>{video.channel}</p>
-                    </div>
-                  </div>
-                </Link>
+        <RelatedVideos />
 
 
-              )
-            })
-          }
-        </div>
+
+
 
       </div>
     </div>
