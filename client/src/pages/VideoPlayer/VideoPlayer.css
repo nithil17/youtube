@@ -232,3 +232,33 @@
     border-bottom:1px solid #e5e5e5;
 
 }
+
+.comment-header{
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+}
+
+.comment-header button{
+
+    border:none;
+
+    background:#f2f2f2;
+
+    padding:6px 12px;
+
+    border-radius:6px;
+
+    cursor:pointer;
+
+}
+
+.comment-header button:hover{
+
+    background:#dddddd;
+
+}

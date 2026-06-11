@@ -8,6 +8,7 @@ import { Link } from 'react-router-dom';
 
 
 
+
 const VideoPlayer = ({
   searchText,
 
@@ -54,6 +55,39 @@ const VideoPlayer = ({
 
   const [newComment, setNewComment] = useState("");
 
+  const handleAddComment = () => {
+
+    if (newComment.trim() === "") {
+      return;
+    }
+
+    const comment = {
+      id: Date.now(),
+      user: "You",
+      text: newComment
+
+    }
+
+    setComments([
+      ...comments, comment
+    ]);
+
+    setNewComment("");
+
+
+  }
+
+  const handleDeleteComment = (id) => {
+
+    const updateComment = comments.filter((comment) => {
+      return comment.id !== id;
+    })
+
+    setComments(updateComment);
+
+
+  }
+
 
   return (
     <div>
@@ -89,33 +123,46 @@ const VideoPlayer = ({
 
 
 
-            <div className='comment-input'>
-              <input
-                type="text"
-                placeholder='Add a comment...'
-                value={newComment}
-                onChange={(event) => {
-                  setNewComment(event.target.value)
-                }}
-              />
+          <div className='comment-input'>
+            <input
+              type="text"
+              placeholder='Add a comment...'
+              value={newComment}
+              onChange={(event) => {
+                setNewComment(event.target.value)
+              }}
+            />
 
-              <button>Comment</button>
-            </div>
+            <button
+              onClick={handleAddComment}
+            >Comment</button>
+          </div>
 
-            <div className='comments-section' >
-              <h3>Comments </h3>
-              {
-                comments.map((comment) => {
-                  return (
-                    <div className='comment-card'
-                      key={comment.id}>
+          <div className='comments-section' >
+            <h3>Comments </h3>
+            {
+              comments.map((comment) => {
+                return (
+                  <div className='comment-card'
+                    key={comment.id}>
+
+                    <div className='comment-header'>
+
                       <h4>{comment.user}</h4>
-                      <p>{comment.text}</p>
+
+                      <button
+                      onClick={()=>handleDeleteComment(comment.id)}
+                      >Delete</button>
+
                     </div>
-                  )
-                })
-              }
-            </div>
+
+                     <p>{comment.text}</p>
+
+                  </div>
+                )
+              })
+            }
+          </div>
 
         </div>
 
