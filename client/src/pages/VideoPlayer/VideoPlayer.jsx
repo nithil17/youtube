@@ -15,7 +15,6 @@ const VideoPlayer = () => {
   return (
     <div>
       <Header />
-
       <div className="video-player-page">
         <div className="main-video">
           <img
@@ -41,12 +40,14 @@ const VideoPlayer = () => {
               return (
                 <div key={video.id}>
                   <img
-
                   src={video.thumbnail}
+                  alt={video.title}
+                  />
 
-                  alt={video.} />
+                  <h4>{video.title}</h4>
+                  <p>{video.channel}</p>
+
                 </div>
-
               )
             })
           }
