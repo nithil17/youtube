@@ -20,7 +20,7 @@
 
 .video-info{
 
-    padding:10px 0;
+     padding:12px 0;
 
 }
 
@@ -28,7 +28,9 @@
 
     font-size:16px;
 
-    margin-bottom:6px;
+     margin:0 0 8px 0;
+
+
 
 }
 
@@ -37,6 +39,8 @@
     color:#606060;
 
     font-size:14px;
+
+    margin:4px 0;
 
 }
 .video-card:hover{
@@ -48,6 +52,10 @@
 }
 
 .video-link{
+
+    display:flex;
+
+    flex-direction:column;
 
     text-decoration:none;
 

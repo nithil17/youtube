@@ -31,6 +31,9 @@ function App() {
           isSidebarOpen={isSidebarOpen}
         />
 
+        <main
+        className='page-content'
+        >
 
         <Routes>
 
@@ -38,9 +41,6 @@ function App() {
             path="/"
             element={<Home
               searchText={searchText}
-              setSearchText={setSearchText}
-              isSidebarOpen={isSidebarOpen}
-              setIsSidebarOpen={setIsSidebarOpen}
               selectedCategory={selectedCategory}
               setSelectedCategory={setSelectedCategory}
             />}
@@ -57,6 +57,8 @@ function App() {
           />
 
         </Routes>
+
+        </main>
 
       </div>
 

@@ -41,7 +41,7 @@ const VideoPlayer = ({
             <div className='video-meta'>
               <span>{selectedVideo.channel}</span>
               <span>•</span>
-              <span>{selectedVideo.views} Views</span>
+              <span>{selectedViqdeo.views} Views</span>
             </div>
           </div>
 

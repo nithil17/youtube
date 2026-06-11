@@ -4,7 +4,7 @@
 
     flex-shrink:0;
 
-    padding:15px;
+    padding:20px 12px;
 
     border-right:1px solid #e5e5e5;
 
@@ -24,7 +24,7 @@
     cursor:pointer;
 
     border-radius:10px;
-    
+
     margin-bottom:5px;
 
 }
