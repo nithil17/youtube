@@ -17,9 +17,16 @@ const VideoCard = ({ video }) => {
         <div className='video-info'>
           <h3>{video.title}</h3>
 
-          <p>{video.channel}</p>
+          <p>
 
-          <p>{video.views} views</p>
+            {video.channel}
+
+            {" • "}
+
+            {video.views} views
+
+          </p>
+
 
         </div>
 

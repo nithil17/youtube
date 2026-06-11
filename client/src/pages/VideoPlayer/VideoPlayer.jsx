@@ -25,6 +25,36 @@ const VideoPlayer = ({
   const relatedVideos = videos.filter((video) => {
     return video.id !== Number(id);
   })
+
+  const [likes, setLikes] = useState(300);
+  const [disLikes, setDislikes] = useState(14);
+
+  const [comments, setComments] = useState([
+    {
+      id: 1,
+      user: "Alice",
+      text: "Greate Tutorial"
+    },
+    {
+      id: 2,
+      user: "Bob",
+      text: "Nice Video"
+    },
+    {
+      id: 3,
+      user: "John",
+      text: "Okay Okay"
+    },
+    {
+      id: 4,
+      user: "Smith",
+      text: "Addipoli"
+    }
+  ])
+
+  const [newComment, setNewComment] = useState("");
+
+
   return (
     <div>
 
@@ -41,9 +71,51 @@ const VideoPlayer = ({
             <div className='video-meta'>
               <span>{selectedVideo.channel}</span>
               <span>•</span>
-              <span>{selectedViqdeo.views} Views</span>
+              <span>{selectedVideo.views} Views</span>
             </div>
           </div>
+
+          <div className='video-actions'>
+            <button
+              onClick={() => setLikes(likes + 1)}
+            >👍 {likes}
+            </button>
+
+            <button
+              onClick={() => setDislikes(disLikes + 1)}
+            >👎 {disLikes}
+            </button>
+          </div>
+
+
+
+            <div className='comment-input'>
+              <input
+                type="text"
+                placeholder='Add a comment...'
+                value={newComment}
+                onChange={(event) => {
+                  setNewComment(event.target.value)
+                }}
+              />
+
+              <button>Comment</button>
+            </div>
+
+            <div className='comments-section' >
+              <h3>Comments </h3>
+              {
+                comments.map((comment) => {
+                  return (
+                    <div className='comment-card'
+                      key={comment.id}>
+                      <h4>{comment.user}</h4>
+                      <p>{comment.text}</p>
+                    </div>
+                  )
+                })
+              }
+            </div>
 
         </div>
 
@@ -54,8 +126,8 @@ const VideoPlayer = ({
               return (
 
                 <Link
-                to={`/watch/${video.id}`}
-                className='related-link'
+                  to={`/watch/${video.id}`}
+                  className='related-link'
                 >
                   <div
                     className='related-card'

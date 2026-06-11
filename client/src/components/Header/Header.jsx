@@ -46,9 +46,9 @@ const Header = ({
           <FaSearch />
 
         </button>
-
-
       </div>
+
+
       <div className='header-right'>
         <button className='signin-btn'>
           Sign In

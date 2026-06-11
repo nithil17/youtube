@@ -4,7 +4,7 @@
 
     flex-shrink:0;
 
-    padding:20px 12px;
+     padding:15px 10px;
 
     border-right:1px solid #e5e5e5;
 
@@ -26,6 +26,8 @@
     border-radius:10px;
 
     margin-bottom:5px;
+
+    transition:0.2s;
 
 }
 
