@@ -16,3 +16,20 @@
 
 
 }
+
+.loading,
+.error{
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+    min-height:300px;
+
+    font-size:24px;
+
+    font-weight:600;
+
+}

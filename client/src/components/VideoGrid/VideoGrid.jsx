@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react'
-import VideoCard from '../VideoCard/VideoCard'
+import VideoCard from "../VideoCard/VideoCard"
 
 import "./VideoGrid.css"
-import { getVideos } from '../../services/videoServices';
+import { getVideos } from "../../services/videoServices";
 
 const VideoGrid = ({
 
@@ -13,12 +13,23 @@ const VideoGrid = ({
 
     const [videos, setVideos] = useState([]);
     const [loading, setLoading] = useState(true);
+    const [error, setError] = useState("");
 
     useEffect(() => {
-        getVideos().then((data) => {
-            setVideos(data);
-            setLoading(false);
-        })
+        getVideos()
+            .then((data) => {
+                setVideos(data);
+
+
+            })
+
+            .catch(() => {
+                setError("Failed to load videos.");
+            })
+
+            .finally(() => {
+                setLoading(false);
+            })
     }, [])
 
 
@@ -56,10 +67,13 @@ const VideoGrid = ({
         );
 
     }
-
+    console.log(filteredVideos);
     return (
         <div className="video-grid">
+
             {
+
+
                 filteredVideos.map((video) => {
                     return (
                         <VideoCard
