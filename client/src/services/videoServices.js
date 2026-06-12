@@ -1,4 +1,4 @@
-import { videos } from "../utils/videos"
+// import { videos } from "../utils/videos"
 
 export const getVideos = () => {
     return new Promise(resolve =>{

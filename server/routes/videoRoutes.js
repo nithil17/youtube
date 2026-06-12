@@ -2,10 +2,24 @@ const express = require("express");
 
 const router = express.Router();
 
-const videos = require("../data/videos");
+const {
 
-const {getAllVideos} = require("../controllers/videoController")
+    getAllVideos,
+
+    getVideoById,
+
+    addVideo,
+
+    deleteVideo
+
+} = require("../controllers/videoController");
 
 router.get("/", getAllVideos);
+
+router.get("/:id", getVideoById);
+
+router.post("/", addVideo);
+
+router.delete("/:id", deleteVideo);
 
 module.exports = router;
