@@ -1,8 +1,6 @@
 const Video = require("../models/Video");
 
-// ===========================
 // GET ALL VIDEOS
-// ===========================
 
 const getAllVideos = async (req, res) => {
 
@@ -12,19 +10,21 @@ const getAllVideos = async (req, res) => {
 
         res.status(200).json(videos);
 
-    } catch (error) {
+    }
+
+    catch (error) {
 
         res.status(500).json({
+
             message: error.message
+
         });
 
     }
 
 };
 
-// ===========================
-// GET SINGLE VIDEO
-// ===========================
+// GET VIDEO BY ID
 
 const getVideoById = async (req, res) => {
 
@@ -35,50 +35,56 @@ const getVideoById = async (req, res) => {
         if (!video) {
 
             return res.status(404).json({
+
                 message: "Video not found"
+
             });
 
         }
 
         res.status(200).json(video);
 
-    } catch (error) {
+    }
+
+    catch (error) {
 
         res.status(500).json({
+
             message: error.message
+
         });
 
     }
 
 };
 
-// ===========================
 // ADD VIDEO
-// ===========================
 
 const addVideo = async (req, res) => {
 
     try {
 
-        const newVideo = new Video(req.body);
+        const video = new Video(req.body);
 
-        const savedVideo = await newVideo.save();
+        const savedVideo = await video.save();
 
         res.status(201).json(savedVideo);
 
-    } catch (error) {
+    }
+
+    catch (error) {
 
         res.status(500).json({
+
             message: error.message
+
         });
 
     }
 
 };
 
-// ===========================
 // DELETE VIDEO
-// ===========================
 
 const deleteVideo = async (req, res) => {
 
@@ -89,28 +95,32 @@ const deleteVideo = async (req, res) => {
         if (!deletedVideo) {
 
             return res.status(404).json({
+
                 message: "Video not found"
+
             });
 
         }
 
         res.status(200).json({
-            message: "Video deleted successfully"
+
+            message: "Video deleted"
+
         });
 
-    } catch (error) {
+    }
+
+    catch (error) {
 
         res.status(500).json({
+
             message: error.message
+
         });
 
     }
 
 };
-
-// ===========================
-// EXPORTS
-// ===========================
 
 module.exports = {
 
