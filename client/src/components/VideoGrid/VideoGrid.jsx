@@ -14,27 +14,26 @@ const VideoGrid = ({
     const [videos, setVideos] = useState([]);
     const [loading, setLoading] = useState(true);
 
-    useEffect(())=>{
-        getVideos().then((data)=>{
+    useEffect(() => {
+        getVideos().then((data) => {
             setVideos(data);
             setLoading(false);
-        }
-        )
-    }
+        })
+    }, [])
 
 
-    const filteredVideos = videos.filter((video)=>{
+    const filteredVideos = videos.filter((video) => {
 
         const matchesSearch =
             video.title
-            .toLowerCase()
-            .includes(searchText.toLowerCase())
+                .toLowerCase()
+                .includes(searchText.toLowerCase())
 
             ||
 
             video.channel
-            .toLowerCase()
-            .includes(searchText.toLowerCase())
+                .toLowerCase()
+                .includes(searchText.toLowerCase())
 
         const matchesCategory =
 
@@ -42,29 +41,36 @@ const VideoGrid = ({
 
             ||
 
-            video.category===selectedCategory;
+            video.category === selectedCategory;
 
 
         return matchesSearch && matchesCategory;
-      });
+    });
 
+    if (loading) {
 
-  return (
-    <div className="video-grid">
-        {
-            filteredVideos.map((video)=>{
-                 return(
-                    <VideoCard
-                    key={video.id}
-                    video={video}
-                    />
-                 )
+        return (
+
+            <h2>Loading Videos...</h2>
+
+        );
+
+    }
+
+    return (
+        <div className="video-grid">
+            {
+                filteredVideos.map((video) => {
+                    return (
+                        <VideoCard
+                            key={video.id}
+                            video={video}
+                        />
+                    )
+                })
             }
-
-        )
-        }
-    </div>
-  )
+        </div>
+    )
 }
 
 export default VideoGrid
