@@ -1,99 +1,122 @@
-const videos = require("../models/Video");
+const Video = require("../models/Video");
 
+// ===========================
 // GET ALL VIDEOS
+// ===========================
 
-const getAllVideos = (req, res) => {
+const getAllVideos = async (req, res) => {
 
-    const videos= await Videos.find();
+    try {
 
-    res.status(200).json(videos);
+        const videos = await Video.find();
+
+        res.status(200).json(videos);
+
+    } catch (error) {
+
+        res.status(500).json({
+            message: error.message
+        });
+
+    }
 
 };
 
+// ===========================
 // GET SINGLE VIDEO
+// ===========================
 
-const getVideoById = (req, res) => {
+const getVideoById = async (req, res) => {
 
-    const id = Number(req.params.id);
+    try {
 
-    const video = videos.find((video) => {
+        const video = await Video.findById(req.params.id);
 
-        return video.id === id;
+        if (!video) {
 
-    });
+            return res.status(404).json({
+                message: "Video not found"
+            });
 
-    if (!video) {
+        }
 
-        return res.status(404).json({
+        res.status(200).json(video);
 
-            message: "Video not found"
+    } catch (error) {
 
+        res.status(500).json({
+            message: error.message
         });
 
     }
 
-    res.status(200).json(video);
-
 };
 
+// ===========================
 // ADD VIDEO
+// ===========================
 
-const addVideo = (req, res) => {
+const addVideo = async (req, res) => {
 
-    const newVideo = {
+    try {
 
-        id: Date.now(),
+        const newVideo = new Video(req.body);
 
-        ...req.body
+        const savedVideo = await newVideo.save();
 
-    };
+        res.status(201).json(savedVideo);
 
-    videos.push(newVideo);
+    } catch (error) {
 
-    res.status(201).json(newVideo);
-
-};
-
-// DELETE VIDEO
-
-const deleteVideo = (req, res) => {
-
-    const id = Number(req.params.id);
-
-    const index = videos.findIndex((video) => {
-
-        return video.id === id;
-
-    });
-
-    if (index === -1) {
-
-        return res.status(404).json({
-
-            message: "Video not found"
-
+        res.status(500).json({
+            message: error.message
         });
 
     }
 
-    videos.splice(index, 1);
+};
 
-    res.status(200).json({
+// ===========================
+// DELETE VIDEO
+// ===========================
 
-        message: "Video deleted"
+const deleteVideo = async (req, res) => {
 
-    });
+    try {
+
+        const deletedVideo = await Video.findByIdAndDelete(req.params.id);
+
+        if (!deletedVideo) {
+
+            return res.status(404).json({
+                message: "Video not found"
+            });
+
+        }
+
+        res.status(200).json({
+            message: "Video deleted successfully"
+        });
+
+    } catch (error) {
+
+        res.status(500).json({
+            message: error.message
+        });
+
+    }
 
 };
+
+// ===========================
+// EXPORTS
+// ===========================
 
 module.exports = {
 
     getAllVideos,
-
     getVideoById,
-
     addVideo,
-
     deleteVideo
 
 };
