@@ -1,15 +1,45 @@
 const mongoose = require("mongoose")
 
 const videoSchema = new mongoose.Schema({
-    title:String,
+    title: {
 
-    channel:String,
+        type: String,
 
-    views:String,
+        required: true
 
-    thumbnail:String,
+    },
 
-    category:String
+    channel: {
+
+        type: String,
+
+        required: true
+
+    },
+
+    views: {
+
+        type: String,
+
+        default: "0"
+
+    },
+
+    thumbnail: {
+
+        type: String,
+
+        required: true
+
+    },
+
+    category: {
+
+        type: String,
+
+        required: true
+
+    }
 })
 
 module.exports = mongoose.model("Video", videoSchema);
