@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import VideoCard from "../VideoCard/VideoCard"
 
 import "./VideoGrid.css"
-import { getVideos } from "../../services/videoServices";
+
 
 const VideoGrid = ({
 
@@ -16,20 +16,24 @@ const VideoGrid = ({
     const [error, setError] = useState("");
 
     useEffect(() => {
-        getVideos()
-            .then((data) => {
+        const fetchVideos = async () => {
+            try {
+                const response = await fetch("http://localhost:5000/api/videos")
+
+                const data = await response.json();
+
                 setVideos(data);
 
+            } catch (error) {
 
-            })
+                setError("Failed to load Videos")
 
-            .catch(() => {
-                setError("Failed to load videos.");
-            })
-
-            .finally(() => {
+            } finally {
                 setLoading(false);
-            })
+            }
+        }
+
+        fetchVideos();
     }, [])
 
 
@@ -67,7 +71,14 @@ const VideoGrid = ({
         );
 
     }
-    console.log(filteredVideos);
+
+    if (error) {
+
+        return <h2>{error}</h2>;
+
+    }
+
+
     return (
         <div className="video-grid">
 

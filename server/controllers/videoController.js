@@ -1,8 +1,10 @@
-const videos = require("../data/videos");
+const videos = require("../models/Video");
 
 // GET ALL VIDEOS
 
 const getAllVideos = (req, res) => {
+
+    const videos= await Videos.find();
 
     res.status(200).json(videos);
 
