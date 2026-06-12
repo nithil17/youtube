@@ -1,39 +1,49 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import VideoCard from '../VideoCard/VideoCard'
-import { videos } from '../../utils/videos'
+
 import "./VideoGrid.css"
+import { getVideos } from '../../services/videoServices';
 
 const VideoGrid = ({
-    
+
     searchText,
     selectedCategory
 
 }) => {
 
-    console.log(selectedCategory);
-    // adding logic to filter videos according to categories
+    const [videos, setVideos] = useState([]);
+    const [loading, setLoading] = useState(true);
+
+    useEffect(())=>{
+        getVideos().then((data)=>{
+            setVideos(data);
+            setLoading(false);
+        }
+        )
+    }
+
 
     const filteredVideos = videos.filter((video)=>{
 
-        const matchesSearch = 
+        const matchesSearch =
             video.title
             .toLowerCase()
             .includes(searchText.toLowerCase())
-            
+
             ||
 
             video.channel
             .toLowerCase()
             .includes(searchText.toLowerCase())
 
-        const matchesCategory = 
+        const matchesCategory =
 
             selectedCategory === "All"
 
-            || 
+            ||
 
             video.category===selectedCategory;
-        
+
 
         return matchesSearch && matchesCategory;
       });
@@ -44,13 +54,13 @@ const VideoGrid = ({
         {
             filteredVideos.map((video)=>{
                  return(
-                    <VideoCard 
+                    <VideoCard
                     key={video.id}
                     video={video}
                     />
                  )
             }
-           
+
         )
         }
     </div>
