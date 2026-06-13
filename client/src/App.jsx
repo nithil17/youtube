@@ -6,6 +6,7 @@ import VideoPlayer from './pages/VideoPlayer/VideoPlayer';
 import { useState } from 'react';
 import Header from './components/Header/Header';
 import Sidebar from './components/Sidebar/Sidebar';
+import AddVideo from './pages/AddVideo/AddVideo';
 
 
 
@@ -32,31 +33,36 @@ function App() {
         />
 
         <main
-        className='page-content'
+          className='page-content'
         >
 
-        <Routes>
+          <Routes>
 
-          <Route
-            path="/"
-            element={<Home
-              searchText={searchText}
-              selectedCategory={selectedCategory}
-              setSelectedCategory={setSelectedCategory}
-            />}
-          />
+            <Route
+              path="/"
+              element={<Home
+                searchText={searchText}
+                selectedCategory={selectedCategory}
+                setSelectedCategory={setSelectedCategory}
+              />}
+            />
 
-          <Route
-            path='/watch/:id'
-            element={<VideoPlayer
-              searchText={searchText}
-              setSearchText={setSearchText}
-              isSidebarOpen={isSidebarOpen}
-              setIsSidebarOpen={setIsSidebarOpen}
-            />}
-          />
+            <Route
+              path='/watch/:id'
+              element={<VideoPlayer
+                searchText={searchText}
+                setSearchText={setSearchText}
+                isSidebarOpen={isSidebarOpen}
+                setIsSidebarOpen={setIsSidebarOpen}
+              />}
+            />
 
-        </Routes>
+            <Route
+              path="/add-video"
+              element={<AddVideo />}
+            />
+
+          </Routes>
 
         </main>
 
