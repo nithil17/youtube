@@ -1,21 +1,56 @@
 import React from 'react'
 import { useParams } from "react-router-dom";
-import { videos } from '../../utils/videos';
 import "./VideoPlayer.css"
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import VideoAction from '../../components/VideoActions/VideoActions';
 import CommentSection from '../../components/CommentSection/CommentSection';
 import RelatedVideos from '../../components/RelatedVideos/RelatedVideos';
+import "./VideoPlayer.css"
+import { getVideoById } from '../../services/videoServices';
 
 
 const VideoPlayer = () => {
 
+  const [selectedVideo, setSelectedVideo] = useState(null);
+
+  const [loading, setLoading] = useState(true);
+
+  const [error, setError] = useState("");
+
   const { id } = useParams();
+
 
   const selectedVideo = videos.find((video) => {
     return video._id === Number(id);
   })
+
+
+  useEffect(()=>{
+
+    const fetchVideos = async ()=>{
+      try {
+        const data = await getVideoById(id);
+        setSelectedVideo(data);
+      } catch (error) {
+        setError(error.message);
+      }finally{
+        setLoading(false);
+      }
+
+
+    }
+    return fetchVideos;
+  },[id])
+
+
+  if(loading){
+    return <h2>Loading...</h2>
+  }
+
+   if(error){
+    return <h2>error</h2>
+  }
 
   if (!selectedVideo) {
 
