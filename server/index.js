@@ -5,6 +5,7 @@ const dotenv = require("dotenv");
 const connectDB = require("./config/db");
 
 const videoRoutes = require("./routes/videoRoutes");
+const authRoutes = require("./routes/authRoutes");
 
 dotenv.config();
 
@@ -18,11 +19,7 @@ app.use(express.json());
 
 app.use("/api/videos", videoRoutes);
 
-app.get("/", (req, res) => {
-
-    res.send("Server Running");
-
-});
+app.use("/api/auth", authRoutes);
 
 const PORT = process.env.PORT || 5000;
 
