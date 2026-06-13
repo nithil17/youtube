@@ -8,6 +8,9 @@ const getAllVideos = async (req, res) => {
 
         const videos = await Video.find();
 
+        console.log("Videos fetched from MongoDB:");
+        console.log(videos);
+
         res.status(200).json(videos);
 
     }
