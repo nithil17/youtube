@@ -62,6 +62,14 @@ function App() {
               element={<AddVideo />}
             />
 
+            <Route
+
+              path="/admin"
+
+              element={<AdminDashboard />}
+
+            />
+
           </Routes>
 
         </main>
