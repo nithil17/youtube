@@ -14,7 +14,7 @@ const VideoPlayer = () => {
   const { id } = useParams();
 
   const selectedVideo = videos.find((video) => {
-    return video.id === Number(id);
+    return video._id === Number(id);
   })
 
   if (!selectedVideo) {
