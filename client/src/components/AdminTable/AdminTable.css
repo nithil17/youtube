@@ -1,0 +1,73 @@
+.admin-table{
+
+    width:100%;
+
+    border-collapse:collapse;
+
+}
+
+.admin-table th{
+
+    text-align:left;
+
+    padding:15px;
+
+    background:#f2f2f2;
+
+}
+
+.admin-table td{
+
+    padding:15px;
+
+    border-bottom:1px solid #dddddd;
+
+}
+
+.admin-table tr:hover{
+
+    background:#fafafa;
+
+}
+
+.table-thumbnail{
+
+    width:120px;
+
+    border-radius:8px;
+
+}
+
+.edit-btn{
+
+    border:none;
+
+    background:black;
+
+    color:white;
+
+    padding:8px 14px;
+
+    margin-right:10px;
+
+    border-radius:6px;
+
+    cursor:pointer;
+
+}
+
+.delete-btn{
+
+    border:none;
+
+    background:red;
+
+    color:white;
+
+    padding:8px 14px;
+
+    border-radius:6px;
+
+    cursor:pointer;
+
+}

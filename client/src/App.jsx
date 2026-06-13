@@ -7,6 +7,7 @@ import { useState } from 'react';
 import Header from './components/Header/Header';
 import Sidebar from './components/Sidebar/Sidebar';
 import AddVideo from './pages/AddVideo/AddVideo';
+import AdminDashboard from "./pages/AdminDashboard/AdminDashboard";
 
 
 
@@ -60,6 +61,14 @@ function App() {
             <Route
               path="/add-video"
               element={<AddVideo />}
+            />
+
+            <Route
+
+              path="/admin"
+
+              element={<AdminDashboard />}
+
             />
 
             <Route
