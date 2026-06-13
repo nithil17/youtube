@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react'
 import VideoCard from "../VideoCard/VideoCard"
 
+import { getVideos } from '../../services/videoServices'
+
 import "./VideoGrid.css"
 
 
@@ -18,9 +20,9 @@ const VideoGrid = ({
     useEffect(() => {
         const fetchVideos = async () => {
             try {
-                const response = await fetch("http://localhost:5000/api/videos")
 
-                const data = await response.json();
+
+                const data = await getVideos();
 
                 setVideos(data);
 
