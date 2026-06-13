@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom'
 const VideoCard = ({ video }) => {
   return (
     <Link
-      to={`/watch/${video.id}`}
+      to={`/watch/${video._id}`}
       className='video-link'
     >
       <div className="video-card">
