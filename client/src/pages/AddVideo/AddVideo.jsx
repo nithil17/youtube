@@ -1,6 +1,8 @@
 import { useState } from "react";
 import { addVideo } from "../../services/videoServices";
 
+import "./AddVideo.css"
+
 
 
 
@@ -53,11 +55,11 @@ function AddVideo(params) {
     }
 
     return(
-        <div className="addvideo-container">
+        <div className="add-video-container">
             <h2>
             Add New Video
             </h2>
-            <form onSubmit={handleSubmit}>
+            <form className="add-video-form" onSubmit={handleSubmit}>
                     <input
                     name="title"
                     placeholder="Title"

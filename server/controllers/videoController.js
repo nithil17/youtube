@@ -133,3 +133,52 @@ module.exports = {
     deleteVideo
 
 };
+
+
+// UPDATE VIDEO
+
+const updateVideo = async (req, res) => {
+
+    try {
+
+        const updatedVideo = await Video.findByIdAndUpdate(
+
+            req.params.id,
+
+            req.body,
+
+            {
+
+                new: true,
+
+                runValidators: true
+
+            }
+
+        );
+
+        if (!updatedVideo) {
+
+            return res.status(404).json({
+
+                message: "Video not found"
+
+            });
+
+        }
+
+        res.status(200).json(updatedVideo);
+
+    }
+
+    catch (error) {
+
+        res.status(500).json({
+
+            message: error.message
+
+        });
+
+    }
+
+};
