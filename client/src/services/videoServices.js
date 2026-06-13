@@ -87,3 +87,18 @@ export const updateVideo = async (id, video) => {
     return await response.json();
 
 };
+
+// DELETE VIDEO
+
+export const deleteVideo = async (id)=>{
+
+    const response = await fetch(`${API}/${id}`);
+        method: "DELETE"
+
+    if(!response){
+        throw new Error("Failed To Delete Video")
+    }
+
+    return await response.json();
+
+}
