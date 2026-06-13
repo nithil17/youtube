@@ -26,7 +26,7 @@ function AddVideo(params) {
         });
     }
 
-    const handleSubmit = (event) => {
+    const handleSubmit = async (event) => {
         event.preventDefault();
         try {
             await addVideo(formData);

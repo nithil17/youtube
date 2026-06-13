@@ -21,9 +21,9 @@ const VideoPlayer = () => {
   const { id } = useParams();
 
 
-  const selectedVideo = videos.find((video) => {
-    return video._id === Number(id);
-  })
+  // const selectedVideo = videos.find((video) => {
+  //   return video._id === Number(id);
+  // })
 
 
   useEffect(()=>{

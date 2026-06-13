@@ -15,9 +15,9 @@ function RelatedVideos() {
 
     const [error, setError] = useState("");
 
-    const relatedVideos = videos.filter((video) => {
-        return video._id !== Number(id);
-    })
+    // const relatedVideos = videos.filter((video) => {
+    //     return video._id !== Number(id);
+    // })
 
     useEffect(() => {
 
