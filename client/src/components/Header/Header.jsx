@@ -2,6 +2,13 @@ import React, { useState } from 'react'
 import "./Header.css"
 import { FaBars } from "react-icons/fa"
 import { FaSearch } from "react-icons/fa"
+import { useContext } from "react";
+import { AuthContext } from '../../context/AuthContext'
+import { useNavigate } from 'react-router-dom'
+
+const navigate = useNavigate();
+
+const { isAuthenticated, logout } = useContext(AuthContext);
 
 const Header = ({
   searchText,
@@ -49,11 +56,35 @@ const Header = ({
       </div>
 
 
-      <div className='header-right'>
-        <button className='signin-btn'>
-          Sign In
-        </button>
-      </div>
+<div className="header-right">
+
+    {
+
+        isAuthenticated ? (
+
+            <button
+                className="signin-btn"
+                onClick={() => {
+                    logout();
+                    navigate("/login");
+                }}
+            >
+                Logout
+            </button>
+        ) : (
+
+            <button
+                className="signin-btn"
+                onClick={() => {
+                    navigate("/login");
+                }}
+           >
+                Sign In
+            </button>
+        )
+    }
+
+</div>
 
     </header>
 
