@@ -11,6 +11,7 @@ import AdminDashboard from "./pages/AdminDashboard/AdminDashboard";
 import Login from "./pages/Login/Login";
 import ProtectedRoute from './components/ProtectedRoute/ProtectedRoute';
 import Channel from "./pages/Channel/Channel";
+import EditVideo from "./pages/EditVideo/EditVideo";
 
 
 
@@ -94,6 +95,15 @@ function App() {
             <Route
               path="/channel/:channel"
               element={<Channel />}
+            />
+
+            <Route
+              path="/edit-video/:id"
+              element={
+                <ProtectedRoute>
+                  <EditVideo />
+                </ProtectedRoute>
+              }
             />
 
 

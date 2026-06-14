@@ -1,48 +1,50 @@
 import { useState } from "react";
 import { deleteVideo, getVideos } from "../../services/videoServices";
 
+import { Link } from "react-router-dom";
+
 const AdminDashboard = () => {
 
-const [videos , setVideos] = useState([]);
+    const [videos, setVideos] = useState([]);
 
-const [loading, setLoading] = useState(true);
+    const [loading, setLoading] = useState(true);
 
-const [error , setError] = useState("");
+    const [error, setError] = useState("");
 
-useEffect(()=>{
+    useEffect(() => {
 
-    const fetchVideos = async ()=> {
+        const fetchVideos = async () => {
 
-        try {
-            const data = await getVideos();
+            try {
+                const data = await getVideos();
 
-            setVideos(data);
+                setVideos(data);
 
-        } catch (error) {
+            } catch (error) {
 
-            setError(error);
+                setError(error);
 
-        }finally {
+            } finally {
 
-            setLoading(false);
+                setLoading(false);
+            }
+
+            return fetchVideos;
         }
+    }, []);
 
-        return fetchVideos;
+    const handleDelete = async (id) => {
+        try {
+            await deleteVideo(id);
+
+            setVideos(
+                videos.filter((video) => video._id !== id)
+            );
+        } catch (error) {
+            alert(error.message);
+
+        }
     }
-}, []);
-
-const handleDelete = async (id)=> {
-    try {
-        await deleteVideo(id);
-
-        setVideos(
-            videos.filter((video)=>video._id!==id)
-        );
-    } catch (error) {
-          alert(error.message);
-
-    }
-}
 
     if (loading) {
 
@@ -56,11 +58,15 @@ const handleDelete = async (id)=> {
 
     }
 
-        return (
+    return (
 
         <div className="admin-dashboard">
 
             <h1>Admin Dashboard</h1>
+
+            <Link to={`/edit-video/${video._id}`}>
+                <button>Edit</button>
+            </Link>
 
             <AdminTable
 
