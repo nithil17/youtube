@@ -68,3 +68,20 @@
 
     font-size: 15px;
 }
+
+
+@media (max-width: 900px) {
+
+  .video-player-page {
+    flex-direction: column;
+  }
+
+  .main-video {
+    width: 100%;
+  }
+
+  .related-videos {
+    width: 100%;
+  }
+
+}

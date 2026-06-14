@@ -93,3 +93,15 @@
     gap:10px;
 
 }
+
+@media (max-width: 600px) {
+
+  .comment-input {
+    flex-direction: column;
+  }
+
+  .comment-input button {
+    width: 100%;
+  }
+
+}

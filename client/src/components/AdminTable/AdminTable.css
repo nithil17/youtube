@@ -1,10 +1,9 @@
-.admin-table{
-
-    width:100%;
-
-    border-collapse:collapse;
-
+.admin-table {
+  width: 100%;
+  overflow-x: auto;
+  display: block;
 }
+
 
 .admin-table th{
 
@@ -30,12 +29,8 @@
 
 }
 
-.table-thumbnail{
-
-    width:120px;
-
-    border-radius:8px;
-
+.table-thumbnail {
+  width: 80px;
 }
 
 .edit-btn{
@@ -69,5 +64,19 @@
     border-radius:6px;
 
     cursor:pointer;
+
+}
+
+@media (max-width: 768px) {
+
+  .table-thumbnail {
+    width: 60px;
+  }
+
+  .admin-table th,
+  .admin-table td {
+    font-size: 14px;
+    padding: 8px;
+  }
 
 }
