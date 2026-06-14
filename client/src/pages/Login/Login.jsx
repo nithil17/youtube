@@ -1,15 +1,18 @@
 import React from 'react'
 
-import { useState } from 'react'
+import { useState, useContext } from 'react'
 import { loginUser } from '../../services/authServices'
+import { AuthContext } from "../../context/AuthContext";
 
-import(loginUser)
+import { loginUser } from '../../services/authServices';
 
 import "./Login.css";
+import { useNavigate, useNavigation } from 'react-router-dom'
 
 const Login = () => {
 
   const navigate = useNavigate();
+  const { login } = useContext(AuthContext);
   const [formData, setFormData] = useState({
     email: "",
     passowrd: ""
@@ -29,15 +32,15 @@ const Login = () => {
 
       const data = await loginUser(formData);
 
-      localStorage.setItem(
+      login(
 
-        "token",
-        data.token
+        data.token,
+
+        data.user
+
       );
 
-      alert("login Successful");
       navigate("/");
-
     } catch (error) {
       alert(error.message);
     }
