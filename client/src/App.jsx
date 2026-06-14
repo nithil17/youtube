@@ -8,6 +8,7 @@ import Header from './components/Header/Header';
 import Sidebar from './components/Sidebar/Sidebar';
 import AddVideo from './pages/AddVideo/AddVideo';
 import AdminDashboard from "./pages/AdminDashboard/AdminDashboard";
+import Login from "./pages/Login/Login";
 
 
 
@@ -76,6 +77,15 @@ function App() {
               path="/admin"
 
               element={<AdminDashboard />}
+
+
+            />
+
+            <Route
+
+              path="/login"
+
+              element={<Login />}
 
             />
 
