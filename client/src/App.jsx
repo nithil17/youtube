@@ -84,14 +84,6 @@ function App() {
 
             />
 
-            <Route
-
-              path="/admin"
-
-              element={<AdminDashboard />}
-
-
-            />
 
             <Route
 
