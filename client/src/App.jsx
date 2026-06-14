@@ -10,6 +10,7 @@ import AddVideo from './pages/AddVideo/AddVideo';
 import AdminDashboard from "./pages/AdminDashboard/AdminDashboard";
 import Login from "./pages/Login/Login";
 import ProtectedRoute from './components/ProtectedRoute/ProtectedRoute';
+import Channel from "./pages/Channel/Channel";
 
 
 
@@ -86,13 +87,14 @@ function App() {
 
 
             <Route
-
               path="/login"
-
               element={<Login />}
-
             />
 
+            <Route
+              path="/channel/:channel"
+              element={<Channel />}
+            />
 
 
           </Routes>

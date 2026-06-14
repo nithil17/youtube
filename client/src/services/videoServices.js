@@ -115,3 +115,33 @@ export const deleteVideo = async (id) => {
     return await response.json();
 
 };
+// get video by channel
+export const getVideosByChannel = async (channel) => {
+  const response = await fetch(
+    `${API}/channel/${encodeURIComponent(channel)}`
+  );
+
+  if (!response.ok) {
+    throw new Error("Failed to fetch channel videos");
+  }
+
+  return await response.json();
+};
+
+// Update Video
+
+export const updateVideo = async (id, video) => {
+  const response = await fetch(`${API}/${id}`, {
+    method: "PUT",
+    headers: {
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify(video)
+  });
+
+  if (!response.ok) {
+    throw new Error("Failed to update video");
+  }
+
+  return await response.json();
+};

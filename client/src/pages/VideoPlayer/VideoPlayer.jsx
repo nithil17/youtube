@@ -26,29 +26,29 @@ const VideoPlayer = () => {
   // })
 
 
-  useEffect(()=>{
+  useEffect(() => {
 
-    const fetchVideos = async ()=>{
+    const fetchVideos = async () => {
       try {
         const data = await getVideoById(id);
         setSelectedVideo(data);
       } catch (error) {
         setError(error.message);
-      }finally{
+      } finally {
         setLoading(false);
       }
 
 
     }
     return fetchVideos;
-  },[id])
+  }, [id])
 
 
-  if(loading){
+  if (loading) {
     return <h2>Loading...</h2>
   }
 
-   if(error){
+  if (error) {
     return <h2>error</h2>
   }
 
@@ -76,7 +76,11 @@ const VideoPlayer = () => {
           <div className='video-info'>
             <h2>{selectedVideo.title}</h2>
             <div className='video-meta'>
-              <span>{selectedVideo.channel}</span>
+              <Link
+                to={`/channel/${selectedVideo.channel}`}
+              >
+                {selectedVideo.channel}
+              </Link>
               <span>•</span>
               <span>{selectedVideo.views} Views</span>
             </div>
@@ -85,7 +89,9 @@ const VideoPlayer = () => {
           {/* video action like and dislike */}
           <VideoAction />
 
-          <CommentSection />
+          <CommentSection
+            videoId={selectedVideo._id}
+          />
 
 
 

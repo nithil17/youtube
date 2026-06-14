@@ -125,16 +125,6 @@ const deleteVideo = async (req, res) => {
 
 };
 
-module.exports = {
-
-    getAllVideos,
-    getVideoById,
-    addVideo,
-    deleteVideo
-
-};
-
-
 // UPDATE VIDEO
 
 const updateVideo = async (req, res) => {
@@ -182,3 +172,54 @@ const updateVideo = async (req, res) => {
     }
 
 };
+
+const getVideosByChannel = async (req, res) => {
+  try {
+    const videos = await Video.find({
+      channel: req.params.channel
+    });
+
+    res.status(200).json(videos);
+
+  } catch (error) {
+    res.status(500).json({
+      message: error.message
+    });
+  }
+};
+
+const updateVideo = async (req, res) => {
+  try {
+    const updatedVideo = await Video.findByIdAndUpdate(
+      req.params.id,
+      req.body,
+      {
+        new: true
+      }
+    );
+
+    if (!updatedVideo) {
+      return res.status(404).json({
+        message: "Video not found"
+      });
+    }
+
+    res.status(200).json(updatedVideo);
+
+  } catch (error) {
+    res.status(500).json({
+      message: error.message
+    });
+  }
+};
+
+module.exports = {
+  getAllVideos,
+  getVideoById,
+  addVideo,
+  updateVideo,
+  deleteVideo,
+  getVideosByChannel
+};
+
+

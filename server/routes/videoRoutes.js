@@ -10,7 +10,8 @@ const {
 
     addVideo,
 
-    deleteVideo
+    deleteVideo,
+updateVideo
 
 } = require("../controllers/videoController");
 
@@ -20,6 +21,10 @@ router.get("/:id", getVideoById);
 
 router.post("/", addVideo);
 
+router.put("/:id", updateVideo);
+
 router.delete("/:id", deleteVideo);
+
+router.get("/channel/:channel",  getVideosByChannel);
 
 module.exports = router;
