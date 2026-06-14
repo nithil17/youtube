@@ -4,7 +4,11 @@ const API = "http://localhost:5000/api/videos";
 
 export const getVideos = async () => {
 
+    console.log("Fetching:", API);
+
     const response = await fetch(API);
+
+    console.log("Response:", response);
 
     if (!response.ok) {
 
@@ -12,7 +16,11 @@ export const getVideos = async () => {
 
     }
 
-    return await response.json();
+  const data = await response.json();
+
+console.log(data);
+
+return data;
 
 };
 
@@ -90,15 +98,20 @@ export const updateVideo = async (id, video) => {
 
 // DELETE VIDEO
 
-export const deleteVideo = async (id)=>{
+export const deleteVideo = async (id) => {
 
-    const response = await fetch(`${API}/${id}`);
+    const response = await fetch(`${API}/${id}`, {
+
         method: "DELETE"
 
-    if(!response){
-        throw new Error("Failed To Delete Video")
+    });
+
+    if (!response.ok) {
+
+        throw new Error("Failed To Delete Video");
+
     }
 
     return await response.json();
 
-}
+};

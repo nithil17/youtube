@@ -9,6 +9,7 @@ import Sidebar from './components/Sidebar/Sidebar';
 import AddVideo from './pages/AddVideo/AddVideo';
 import AdminDashboard from "./pages/AdminDashboard/AdminDashboard";
 import Login from "./pages/Login/Login";
+import ProtectedRoute from './components/ProtectedRoute/ProtectedRoute';
 
 
 
@@ -60,8 +61,19 @@ function App() {
             />
 
             <Route
+
               path="/add-video"
-              element={<AddVideo />}
+
+              element={
+
+                <ProtectedRoute>
+
+                  <AddVideo />
+
+                </ProtectedRoute>
+
+              }
+
             />
 
             <Route
@@ -88,6 +100,8 @@ function App() {
               element={<Login />}
 
             />
+
+
 
           </Routes>
 

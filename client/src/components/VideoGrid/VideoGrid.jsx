@@ -24,6 +24,8 @@ const VideoGrid = ({
 
                 const data = await getVideos();
 
+                 console.log("Videos:", data);
+
                 setVideos(data);
 
             } catch (error) {
@@ -90,7 +92,7 @@ const VideoGrid = ({
                 filteredVideos.map((video) => {
                     return (
                         <VideoCard
-                            key={video.id}
+                            key={video._id}
                             video={video}
                         />
                     )
