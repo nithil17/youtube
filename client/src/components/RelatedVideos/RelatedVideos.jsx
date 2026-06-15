@@ -5,6 +5,7 @@ import { useParams } from 'react-router-dom';
 import "./RelatedVideos.css"
 
 import { getVideos } from '../../services/videoServices';
+import Loading from '../Loading/Loading';
 
 function RelatedVideos() {
 
@@ -57,7 +58,7 @@ function RelatedVideos() {
 
     if (loading) {
 
-        return <h3>Loading...</h3>;
+        return <Loading/>
 
     }
 

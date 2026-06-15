@@ -9,6 +9,8 @@ import RelatedVideos from '../../components/RelatedVideos/RelatedVideos';
 import "./VideoPlayer.css"
 import { getVideoById } from '../../services/videoServices';
 
+import Loading from '../../components/Loading/Loading';
+
 
 const VideoPlayer = () => {
 
@@ -45,7 +47,7 @@ const VideoPlayer = () => {
 
 
   if (loading) {
-    return <h2>Loading...</h2>
+    return <Loading/>
   }
 
   if (error) {

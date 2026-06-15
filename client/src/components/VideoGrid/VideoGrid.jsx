@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import VideoCard from "../VideoCard/VideoCard"
 
 import { getVideos } from '../../services/videoServices'
+import Loading from '../Loading/Loading'
 
 import "./VideoGrid.css"
 
@@ -70,7 +71,7 @@ const VideoGrid = ({
 
         return (
 
-            <h2>Loading Videos...</h2>
+            <loading/>
 
         );
 

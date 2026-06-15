@@ -1,0 +1,9 @@
+.error-container {
+  text-align: center;
+  padding: 40px;
+}
+
+.error-container button {
+  margin-top: 20px;
+  padding: 10px 20px;
+}
