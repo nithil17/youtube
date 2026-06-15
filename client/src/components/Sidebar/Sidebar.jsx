@@ -1,88 +1,51 @@
-import React from 'react'
-import "./Sidebar.css"
+import { Link } from "react-router-dom";
 import {
-    FaHome,
-    FaHistory,
-    FaThumbsUp,
-    FaSubscript
+  FaHome,
+  FaPlusSquare,
+  FaChartBar,
+  FaHistory,
+  FaThumbsUp
 } from "react-icons/fa";
 
-import { MdSubscriptions } from "react-icons/md";
+const Sidebar = ({ isSidebarOpen }) => {
 
-export const Sidebar = ({
-    isSidebarOpen, 
-    
-}) => {
-
-const menuItems = [
-
-    {
-        id:1,
-        label:"Home",
-        icon:FaHome
-    },
-
-    {
-        id:2,
-        label:"Subscription",
-        icon:MdSubscriptions
-    },
-
-    {
-        id:3,
-        label:"History",
-        icon:FaHistory
-    },
-
-    {
-        id:4,
-        label:"Liked Videos",
-        icon:FaThumbsUp
-    }
-
-];
+  if (!isSidebarOpen) {
+    return null;
+  }
 
   return (
-    <aside 
-        
-        className={
-            isSidebarOpen
-            ?
-            "sidebar"
-            : "sidebar collapsed"
-        }
-        
-    >
 
-       {
-        menuItems.map((item)=>{
-            const Icon = item.icon;
+    <aside className="sidebar">
 
-            return(
-                <div
-                    className="sidebar-item"
-                    key={item.id}
-                >
-                    <Icon/>
-                    {
-                        isSidebarOpen &&
-                         <span>
+      <Link to="/" className="sidebar-item">
+        <FaHome />
+        <span>Home</span>
+      </Link>
 
-                            {item.label}
+      <Link to="/add-video" className="sidebar-item">
+        <FaPlusSquare />
+        <span>Add Video</span>
+      </Link>
 
-                        </span>
+      <Link to="/admin" className="sidebar-item">
+        <FaChartBar />
+        <span>Admin Dashboard</span>
+      </Link>
 
-                    }
+      <Link to="/" className="sidebar-item">
+        <FaHistory />
+        <span>History</span>
+      </Link>
 
-                </div>
-            )
-        })
-       }
-
-    
+      <Link to="/" className="sidebar-item">
+        <FaThumbsUp />
+        <span>Liked Videos</span>
+      </Link>
 
     </aside>
-  )
-}
+
+  );
+
+};
 
 export default Sidebar;

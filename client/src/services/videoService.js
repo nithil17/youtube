@@ -1,4 +1,6 @@
-const API = "http://localhost:5000/api/videos";
+import { API_URL } from "../constants/api";
+
+const API = `${API_URL}/videos`;
 
 // GET ALL VIDEOS
 
@@ -18,7 +20,7 @@ export const getVideos = async () => {
 
   const data = await response.json();
 
-console.log(data);
+
 
 return data;
 
@@ -115,6 +117,8 @@ export const deleteVideo = async (id) => {
     return await response.json();
 
 };
+
+
 // get video by channel
 export const getVideosByChannel = async (channel) => {
   const response = await fetch(

@@ -4,8 +4,9 @@ import { Link } from 'react-router-dom';
 import { useParams } from 'react-router-dom';
 import "./RelatedVideos.css"
 
-import { getVideos } from '../../services/videoServices';
+import { getVideos } from '../../services/videoService';
 import Loading from '../Loading/Loading';
+import Error from '../Error/Error';
 
 function RelatedVideos() {
 
@@ -58,13 +59,16 @@ function RelatedVideos() {
 
     if (loading) {
 
-        return <Loading/>
+        return <Loading />
 
     }
 
     if (error) {
 
-        return <h3>{error}</h3>;
+        return <Error
+            message={error}
+            onRetry={loadVideos}
+        />
 
     }
 

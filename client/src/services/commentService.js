@@ -1,4 +1,6 @@
-const API = "http://localhost:5000/api/comments";
+import { API_URL } from "../constants/api";
+
+const API = `${API_URL}/comments`;
 
 // GET COMMENTS
 

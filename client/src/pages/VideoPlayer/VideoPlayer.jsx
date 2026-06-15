@@ -7,9 +7,10 @@ import VideoAction from '../../components/VideoActions/VideoActions';
 import CommentSection from '../../components/CommentSection/CommentSection';
 import RelatedVideos from '../../components/RelatedVideos/RelatedVideos';
 import "./VideoPlayer.css"
-import { getVideoById } from '../../services/videoServices';
+import { getVideoById } from '../../services/videoService';
 
 import Loading from '../../components/Loading/Loading';
+import Error from '../../components/Error/Error';
 
 
 const VideoPlayer = () => {
@@ -42,16 +43,19 @@ const VideoPlayer = () => {
 
 
     }
-    return fetchVideos;
+    fetchVideos();
   }, [id])
 
 
   if (loading) {
-    return <Loading/>
+    return <Loading />
   }
 
   if (error) {
-    return <h2>error</h2>
+    return <Error
+      message={error}
+
+    />
   }
 
   if (!selectedVideo) {

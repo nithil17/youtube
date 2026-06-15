@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { addVideo } from "../../services/videoServices";
+import { addVideo } from "../../services/videoService";
 
 import "./AddVideo.css"
 

@@ -61,7 +61,17 @@ const AdminTable = ({ videos, onDelete }) => {
 
               <button
                 className="delete-btn"
-                onClick={() => handleDelete(video._id)}
+                onClick={() => {
+                  const confirmed = window.confirm(
+                    "Are you sure you want to delete this video?"
+                  );
+
+                  if (!confirmed) {
+                    return;
+                  }
+
+                  onDelete(video._id);
+                }}
               >
                 Delete
               </button>

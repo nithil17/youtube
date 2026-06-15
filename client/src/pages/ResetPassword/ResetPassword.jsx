@@ -1,62 +1,51 @@
-import { useState, useContext } from "react";
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { resetPassword } from "../../services/authServices";
+import "./ResetPassword.css";
 
-import { AuthContext } from "../../context/AuthContext";
-import { loginUser } from "../../services/authServices";
+const ResetPassword = () => {
 
-import "./Login.css";
-
-const Login = () => {
-
-  const navigate = useNavigate();
-
-  const { login } = useContext(AuthContext);
-
+  // Form State
   const [formData, setFormData] = useState({
-
     email: "",
-
-    password: ""
-
+    password: "",
+    confirmPassword: ""
   });
 
   const [loading, setLoading] = useState(false);
-
   const [error, setError] = useState("");
 
+  const navigate = useNavigate();
+
+  // Handle Input Change
   const handleChange = (event) => {
-
     setFormData({
-
       ...formData,
-
       [event.target.name]: event.target.value
-
     });
-
   };
 
+  // Reset Password
   const handleSubmit = async (event) => {
-
     event.preventDefault();
 
-    setLoading(true);
-
-    setError("");
+    if (formData.password !== formData.confirmPassword) {
+      setError("Passwords do not match");
+      return;
+    }
 
     try {
+      setLoading(true);
+      setError("");
 
-      const data = await loginUser(formData);
+      await resetPassword({
+        email: formData.email,
+        password: formData.password
+      });
 
-      login(
+      alert("Password updated successfully");
 
-        data.token,
-
-        data.user
-
-      );
-
-      navigate("/");
+      navigate("/login");
 
     } catch (error) {
 
@@ -67,62 +56,50 @@ const Login = () => {
       setLoading(false);
 
     }
-
   };
 
   return (
-
-    <div className="login-container">
+    <div className="reset-container">
 
       <form
-        className="login-form"
+        className="reset-form"
         onSubmit={handleSubmit}
       >
 
-        <h2>Login</h2>
+        <h2>Reset Password</h2>
 
         {
-
           error &&
-
           <p className="error-message">
-
             {error}
-
           </p>
-
         }
 
         <input
-
           type="email"
-
           name="email"
-
           placeholder="Email"
-
           value={formData.email}
-
           onChange={handleChange}
-
           required
-
         />
 
         <input
-
           type="password"
-
           name="password"
-
-          placeholder="Password"
-
+          placeholder="New Password"
           value={formData.password}
-
           onChange={handleChange}
-
           required
+        />
 
+        <input
+          type="password"
+          name="confirmPassword"
+          placeholder="Confirm Password"
+          value={formData.confirmPassword}
+          onChange={handleChange}
+          required
         />
 
         <button
@@ -131,55 +108,18 @@ const Login = () => {
         >
 
           {
-
             loading
-
-              ? "Logging In..."
-
-              : "Login"
-
+              ? "Updating..."
+              : "Reset Password"
           }
 
         </button>
 
-        <p className="login-link">
-
-          Don't have an account?
-
-          <span
-
-            onClick={() => navigate("/register")}
-
-          >
-
-            Register
-
-          </span>
-
-        </p>
-
-        <p className="login-link">
-
-          Forgot Password?
-
-          <span
-
-            onClick={() => navigate("/reset-password")}
-
-          >
-
-            Reset Password
-
-          </span>
-
-        </p>
-
       </form>
 
     </div>
-
   );
 
 };
 
-export default Login;
+export default ResetPassword;

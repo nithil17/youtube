@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 
-import { getVideos, deleteVideo } from "../../services/videoServices";
+import { getVideos, deleteVideo } from "../../services/videoService";
 import AdminTable from "../../components/AdminTable/AdminTable";
 
 const AdminDashboard = () => {

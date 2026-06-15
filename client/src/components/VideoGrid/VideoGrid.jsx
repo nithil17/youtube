@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from 'react'
 import VideoCard from "../VideoCard/VideoCard"
 
-import { getVideos } from '../../services/videoServices'
+import { getVideos } from '../../services/videoService'
 import Loading from '../Loading/Loading'
 
 import "./VideoGrid.css"
+import Error from '../Error/Error'
 
 
 const VideoGrid = ({
@@ -25,7 +26,7 @@ const VideoGrid = ({
 
                 const data = await getVideos();
 
-                 console.log("Videos:", data);
+                console.log("Videos:", data);
 
                 setVideos(data);
 
@@ -69,17 +70,16 @@ const VideoGrid = ({
 
     if (loading) {
 
-        return (
-
-            <loading/>
-
-        );
+        return <Loading />
 
     }
 
     if (error) {
 
-        return <h2>{error}</h2>;
+        return <Error
+            message={error}
+
+        />
 
     }
 

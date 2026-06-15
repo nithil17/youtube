@@ -1,18 +1,16 @@
-import { useState, useContext } from "react";
+
+
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { registerUser } from "../../services/authServices";
+import "./Register.css";
 
-import { AuthContext } from "../../context/AuthContext";
-import { loginUser } from "../../services/authServices";
+function Register() {
 
-import "./Login.css";
-
-const Login = () => {
-
-  const navigate = useNavigate();
-
-  const { login } = useContext(AuthContext);
-
+  // Store form data
   const [formData, setFormData] = useState({
+
+    username: "",
 
     email: "",
 
@@ -20,10 +18,15 @@ const Login = () => {
 
   });
 
+  // Store loading state
   const [loading, setLoading] = useState(false);
 
+  // Store error message
   const [error, setError] = useState("");
 
+  const navigate = useNavigate();
+
+  // Update form fields
   const handleChange = (event) => {
 
     setFormData({
@@ -36,6 +39,7 @@ const Login = () => {
 
   };
 
+  // Register user
   const handleSubmit = async (event) => {
 
     event.preventDefault();
@@ -46,17 +50,11 @@ const Login = () => {
 
     try {
 
-      const data = await loginUser(formData);
+      await registerUser(formData);
 
-      login(
+      alert("Registration Successful");
 
-        data.token,
-
-        data.user
-
-      );
-
-      navigate("/");
+      navigate("/login");
 
     } catch (error) {
 
@@ -72,26 +70,42 @@ const Login = () => {
 
   return (
 
-    <div className="login-container">
+    <div className="register-container">
 
       <form
-        className="login-form"
+        className="register-form"
         onSubmit={handleSubmit}
       >
 
-        <h2>Login</h2>
+        <h2>Create Account</h2>
 
         {
 
           error &&
 
-          <p className="error-message">
+          <p className="error-text">
 
             {error}
 
           </p>
 
         }
+
+        <input
+
+          type="text"
+
+          name="username"
+
+          placeholder="Username"
+
+          value={formData.username}
+
+          onChange={handleChange}
+
+          required
+
+        />
 
         <input
 
@@ -134,45 +148,13 @@ const Login = () => {
 
             loading
 
-              ? "Logging In..."
+              ? "Registering..."
 
-              : "Login"
+              : "Register"
 
           }
 
         </button>
-
-        <p className="login-link">
-
-          Don't have an account?
-
-          <span
-
-            onClick={() => navigate("/register")}
-
-          >
-
-            Register
-
-          </span>
-
-        </p>
-
-        <p className="login-link">
-
-          Forgot Password?
-
-          <span
-
-            onClick={() => navigate("/reset-password")}
-
-          >
-
-            Reset Password
-
-          </span>
-
-        </p>
 
       </form>
 
@@ -180,6 +162,6 @@ const Login = () => {
 
   );
 
-};
+}
 
-export default Login;
+export default Register;

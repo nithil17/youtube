@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { getVideosByChannel } from "../../services/videoService";
 import VideoCard from "../../components/VideoCard/VideoCard";
-import "./Channel.css";
+
 
 function Channel() {
   const { channel } = useParams();

@@ -6,9 +6,7 @@ import { useContext } from "react";
 import { AuthContext } from '../../context/AuthContext'
 import { useNavigate } from 'react-router-dom'
 
-const navigate = useNavigate();
 
-const { isAuthenticated, logout } = useContext(AuthContext);
 
 const Header = ({
   searchText,
@@ -19,6 +17,10 @@ const Header = ({
 
   setIsSidebarOpen
 }) => {
+
+  const navigate = useNavigate();
+
+  const { isAuthenticated, logout } = useContext(AuthContext);
 
 
   return (
@@ -56,35 +58,35 @@ const Header = ({
       </div>
 
 
-<div className="header-right">
+      <div className="header-right">
 
-    {
+        {
 
-        isAuthenticated ? (
+          isAuthenticated ? (
 
             <button
-                className="signin-btn"
-                onClick={() => {
-                    logout();
-                    navigate("/login");
-                }}
+              className="signin-btn"
+              onClick={() => {
+                logout();
+                navigate("/login");
+              }}
             >
-                Logout
+              Logout
             </button>
-        ) : (
+          ) : (
 
             <button
-                className="signin-btn"
-                onClick={() => {
-                    navigate("/login");
-                }}
-           >
-                Sign In
+              className="signin-btn"
+              onClick={() => {
+                navigate("/login");
+              }}
+            >
+              Sign In
             </button>
-        )
-    }
+          )
+        }
 
-</div>
+      </div>
 
     </header>
 
