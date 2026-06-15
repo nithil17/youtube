@@ -1,49 +1,48 @@
-const mongoose = require("mongoose");
+// =====================
+// Imports
+// =====================
 
-const commentSchema = new mongoose.Schema(
+import mongoose from "mongoose";
 
-    {
+// =====================
+// Comment Schema
+// =====================
 
-        videoId: {
+const commentSchema = new mongoose.Schema({
 
-            type: mongoose.Schema.Types.ObjectId,
-
-            ref: "Video",
-
-            required: true
-
-        },
-
-        user: {
-
-            type: String,
-
-            required: true
-
-        },
-
-        text: {
-
-            type: String,
-
-            required: true
-
-        }
-
+    videoId:{
+        type:mongoose.Schema.Types.ObjectId,
+        ref:"Video",
+        required:true
     },
 
-    {
+    userId:{
+        type:mongoose.Schema.Types.ObjectId,
+        ref:"User"
+    },
 
-        timestamps: true
+    user:{
+        type:String,
+        required:true
+    },
 
+    text:{
+        type:String,
+        required:true
     }
 
-);
+},
 
-module.exports = mongoose.model(
+{
 
-    "Comment",
+    timestamps:true
 
-    commentSchema
+});
 
-);
+// =====================
+// Export
+// =====================
+
+const Comment = mongoose.model("Comment",commentSchema);
+
+export default Comment;
