@@ -4,7 +4,7 @@ A full-stack YouTube Clone built using the MERN Stack (MongoDB, Express.js, Reac
 
 ---
 
-# GitHub Link
+# GitHub Link https://github.com/nithil17/youtube
 
 # Features
 
