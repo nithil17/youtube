@@ -1,121 +1,128 @@
-# YouTube Clone - MERN Stack
+# 🎥 YouTube Clone - MERN Stack
 
-## Overview
-
-This project is a full-stack YouTube Clone developed using the MERN Stack (MongoDB, Express.js, React, Node.js).
-
-The application allows users to browse videos, search videos, filter by category, register and login using JWT authentication, create channels, manage videos, interact with videos, and manage comments.
+A full-stack YouTube Clone built using the MERN Stack (MongoDB, Express.js, React, and Node.js). The application allows users to browse videos, search and filter content, create channels, upload and manage videos, like/dislike videos, and interact through a complete comment system with JWT-based authentication.
 
 ---
 
-## Technologies Used
+# Features
 
-### Frontend
+## Authentication
 
-- React
-- React Router
-- Axios
-- CSS
+* User Registration
+* User Login
+* JWT Authentication
+* Protected Routes
+* Password Reset
 
-### Backend
+## Home Page
 
-- Node.js
-- Express.js
-- MongoDB
-- Mongoose
+* Responsive YouTube-style Header
+* Toggle Sidebar
+* Search Videos by Title
+* Category Filters
+* Dynamic Video Grid
 
-### Authentication
+## Video Player
 
-- JWT (JSON Web Token)
+* Video Playback
+* Like / Dislike Functionality
+* Video Description
+* Channel Information
+* Related Videos
 
-### Version Control
+## Comment System
 
-- Git & GitHub
+* Add Comments
+* Edit Comments
+* Delete Comments
+* User-based Authorization
 
----
+## Channel Management
 
-## Features
+* Create Channel
+* View Channel Details
+* Display Channel Videos
+* Edit Uploaded Videos
+* Delete Uploaded Videos
 
-### Home Page
+## Video Management
 
-- Responsive Header
-- Toggle Sidebar
-- Search Videos
-- Category Filters
-- Video Grid
-
-### User Authentication
-
-- Register
-- Login
-- Reset Password
-- JWT Authentication
-- Protected Routes
-
-### Video Management
-
-- Add Video
-- Edit Video
-- Delete Video
-- Video Player
-- Like / Dislike
-
-### Comments
-
-- Add Comment
-- Edit Comment
-- Delete Comment
-
-### Channel
-
-- Create Channel
-- View Channel
-- Edit Videos
-- Delete Videos
-
-### Database
-
-MongoDB Collections:
-
-- Users
-- Videos
-- Channels
-- Comments
+* Upload Video
+* Edit Video
+* Delete Video
+* Category Assignment
+* Thumbnail Support
 
 ---
 
-## Folder Structure
+# Tech Stack
+
+## Frontend
+
+* React
+* React Router DOM
+* Axios
+* CSS
+
+## Backend
+
+* Node.js
+* Express.js
+* MongoDB
+* Mongoose
+
+## Authentication
+
+* JSON Web Token (JWT)
+
+## Development Tools
+
+* Vite
+* Git
+* GitHub
+
+---
+
+# Project Structure
 
 ```
-client/
-server/
-
-client/src/
-components/
-pages/
-services/
-context/
-
-server/
-controllers/
-models/
-routes/
-middleware/
-config/
-data/
+youtube/
+│
+├── client/
+│   ├── src/
+│   │   ├── components/
+│   │   ├── pages/
+│   │   ├── services/
+│   │   ├── context/
+│   │   ├── assets/
+│   │   └── App.jsx
+│   └── package.json
+│
+├── server/
+│   ├── controllers/
+│   ├── models/
+│   ├── routes/
+│   ├── middleware/
+│   ├── config/
+│   ├── data/
+│   ├── seed.js
+│   └── package.json
+│
+└── README.md
 ```
 
 ---
 
-## Installation
+# Installation
 
-### Clone Repository
+## Clone Repository
 
 ```bash
 git clone <repository-url>
+cd youtube
 ```
 
-### Backend
+## Backend Setup
 
 ```bash
 cd server
@@ -123,7 +130,9 @@ npm install
 npm run dev
 ```
 
-### Frontend
+## Frontend Setup
+
+Open a new terminal:
 
 ```bash
 cd client
@@ -133,38 +142,41 @@ npm run dev
 
 ---
 
-## Environment Variables
+# Environment Variables
 
-Create a `.env` file inside the server folder.
+Create a `.env` file inside the `server` directory.
 
 ```
-MONGO_URL=mongodb://127.0.0.1:27017/youtubeDB
-PORT=5000
+MONGO_URI=mongodb://127.0.0.1:27017/youtubeDB
+
 JWT_SECRET=your_secret_key
+
+PORT=5000
 ```
 
 ---
 
-## Seed Database
+# Seed Database
 
-```bash
+```
 cd server
+
 npm run seed
 ```
 
 ---
 
-## API Routes
+# API Endpoints
 
-### Authentication
+## Authentication
 
 ```
-POST /api/auth/register
-POST /api/auth/login
-PUT  /api/auth/reset-password
+POST   /api/auth/register
+POST   /api/auth/login
+PUT    /api/auth/reset-password
 ```
 
-### Videos
+## Videos
 
 ```
 GET    /api/videos
@@ -174,7 +186,7 @@ PUT    /api/videos/:id
 DELETE /api/videos/:id
 ```
 
-### Comments
+## Comments
 
 ```
 GET    /api/comments/:videoId
@@ -183,11 +195,12 @@ PUT    /api/comments/:id
 DELETE /api/comments/:id
 ```
 
-### Channels
+## Channels
 
 ```
 GET    /api/channels
 GET    /api/channels/:id
+GET    /api/channels/:id/videos
 POST   /api/channels
 PUT    /api/channels/:id
 DELETE /api/channels/:id
@@ -195,29 +208,68 @@ DELETE /api/channels/:id
 
 ---
 
-## Project Highlights
+# Database Collections
 
-- MERN Stack Architecture
-- ES Modules
-- JWT Authentication
-- Axios API Integration
-- MongoDB Database
-- Protected Routes
-- CRUD Operations
-- Responsive Layout
-- Search and Category Filters
-- Video Player with Comments
-- Channel Management
+* Users
+* Channels
+* Videos
+* Comments
 
 ---
 
-## Future Improvements
+# Project Highlights
 
-- Video Upload
-- User Profile
-- Subscribe Feature
-- Watch History
-- Playlists
+* MERN Stack Architecture
+* ES Modules
+* JWT Authentication
+* Axios API Integration
+* MongoDB Database
+* Protected Routes
+* Complete CRUD Operations
+* Search Functionality
+* Category Filters
+* Video Player with Comments
+* Like & Dislike System
+* Channel Management
+* Responsive Design
+
+---
+
+# Screenshots
+
+Add project screenshots here.
+
+```
+README/
+├── home.png
+├── watch.png
+├── channel.png
+└── login.png
+```
+
+Example:
+
+```
+![Home](README/home.png)
+
+![Video Player](README/watch.png)
+
+![Channel](README/channel.png)
+
+![Login](README/login.png)
+```
+
+---
+
+# Future Enhancements
+
+* Video File Upload
+* Subscribe Feature
+* User Profiles
+* Watch History
+* Playlists
+* Notifications
+* Dark Mode
 
 ---
 
