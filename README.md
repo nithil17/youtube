@@ -208,7 +208,7 @@ DELETE /api/channels/:id
 
 ---
 
-# Database Collections
+# 💾 Database Collections
 
 * Users
 * Channels
@@ -235,7 +235,7 @@ DELETE /api/channels/:id
 
 ---
 
-# Screenshots
+# 📸 Screenshots
 
 Add project screenshots here.
 
@@ -272,4 +272,5 @@ Example:
 * Dark Mode
 
 ---
+
 
