@@ -25,7 +25,9 @@ const getVideoById = async (req, res) => {
 
     res.status(200).json(video);
   } catch (error) {
-    res.status(500).json({ message: error.message });
+    res.status(500).json({
+      message: error.message
+    });
   }
 };
 
@@ -37,6 +39,13 @@ const addVideo = async (req, res) => {
     if (!selectedChannel) {
       return res.status(404).json({
         message: "Channel not found"
+      });
+    }
+
+    // Allow upload only to the logged-in user's own channel
+    if (selectedChannel.owner.toString() !== req.user.id) {
+      return res.status(403).json({
+        message: "You can upload videos only to your own channel"
       });
     }
 
@@ -60,6 +69,7 @@ const addVideo = async (req, res) => {
     });
 
     res.status(201).json(video);
+
   } catch (error) {
     console.log(error);
     res.status(500).json({
@@ -79,10 +89,7 @@ const updateVideo = async (req, res) => {
       });
     }
 
-    if (
-      video.owner &&
-      video.owner.toString() !== req.user.id
-    ) {
+    if (video.owner && video.owner.toString() !== req.user.id) {
       return res.status(403).json({
         message: "Unauthorized"
       });
@@ -93,6 +100,7 @@ const updateVideo = async (req, res) => {
     await video.save();
 
     res.status(200).json(video);
+
   } catch (error) {
     res.status(500).json({
       message: error.message
@@ -111,10 +119,7 @@ const deleteVideo = async (req, res) => {
       });
     }
 
-    if (
-      video.owner &&
-      video.owner.toString() !== req.user.id
-    ) {
+    if (video.owner && video.owner.toString() !== req.user.id) {
       return res.status(403).json({
         message: "Unauthorized"
       });
@@ -131,6 +136,7 @@ const deleteVideo = async (req, res) => {
     res.status(200).json({
       message: "Video deleted successfully"
     });
+
   } catch (error) {
     res.status(500).json({
       message: error.message
@@ -139,8 +145,11 @@ const deleteVideo = async (req, res) => {
 };
 
 // Like video
+// Like or unlike video
 const likeVideo = async (req, res) => {
+
   try {
+
     const video = await Video.findById(req.params.id);
 
     if (!video) {
@@ -149,21 +158,49 @@ const likeVideo = async (req, res) => {
       });
     }
 
-    video.likes += 1;
+    const userId = req.user.id;
+
+    // Remove like if user already liked
+    if (video.likedBy.some(id => id.toString() === userId)) {
+
+      video.likedBy.pull(userId);
+
+    }
+
+    // Add like and remove dislike
+    else {
+
+      video.likedBy.push(userId);
+      video.dislikedBy.pull(userId);
+
+    }
 
     await video.save();
 
-    res.status(200).json(video);
+    res.status(200).json({
+
+      ...video.toObject(),
+      likes: video.likedBy.length,
+      dislikes: video.dislikedBy.length
+
+    });
+
   } catch (error) {
+
     res.status(500).json({
       message: error.message
     });
+
   }
+
 };
 
 // Dislike video
+// Dislike or remove dislike
 const dislikeVideo = async (req, res) => {
+
   try {
+
     const video = await Video.findById(req.params.id);
 
     if (!video) {
@@ -172,16 +209,41 @@ const dislikeVideo = async (req, res) => {
       });
     }
 
-    video.dislikes += 1;
+    const userId = req.user.id;
+
+    // Remove dislike if user already disliked
+    if (video.dislikedBy.some(id => id.toString() === userId)) {
+
+      video.dislikedBy.pull(userId);
+
+    }
+
+    // Add dislike and remove like
+    else {
+
+      video.dislikedBy.push(userId);
+      video.likedBy.pull(userId);
+
+    }
 
     await video.save();
 
-    res.status(200).json(video);
+    res.status(200).json({
+
+      ...video.toObject(),
+      likes: video.likedBy.length,
+      dislikes: video.dislikedBy.length
+
+    });
+
   } catch (error) {
+
     res.status(500).json({
       message: error.message
     });
+
   }
+
 };
 
 // Get videos by channel
@@ -192,6 +254,7 @@ const getVideosByChannel = async (req, res) => {
     }).sort({ createdAt: -1 });
 
     res.status(200).json(videos);
+
   } catch (error) {
     res.status(500).json({
       message: error.message

@@ -6,7 +6,7 @@ import { getChannelById } from "../../services/channelService";
 import VideoCard from "../../components/VideoCard/VideoCard";
 
 function Channel() {
-  const { channel } = useParams();
+  const { id } = useParams();
   const navigate = useNavigate();
   const { isAuthenticated } = useContext(AuthContext);
 
@@ -16,13 +16,13 @@ function Channel() {
 
   useEffect(() => {
     loadVideos();
-  }, [channel]);
+  }, [id]);
 
   const loadVideos = async () => {
 
     try {
 
-      const channelInfo = await getChannelById(channel);
+      const channelInfo = await getChannelById(id);
       setChannelData(channelInfo);
       const data = await getVideosByChannel(channelInfo._id);
       setVideos(data);

@@ -1,13 +1,12 @@
-import { useState, useEffect, useContext } from "react";
-import "./CommentSection.css";
 
+import { useState, useEffect, useContext, useCallback } from "react";
+import "./CommentSection.css";
 import {
   getComments,
   addComment,
   updateComment,
   deleteComment
 } from "../../services/commentService";
-
 import { AuthContext } from "../../context/AuthContext";
 
 function CommentSection({ videoId }) {
@@ -18,33 +17,27 @@ function CommentSection({ videoId }) {
   const [newComment, setNewComment] = useState("");
   const [editId, setEditId] = useState(null);
 
-  // Load comments whenever video changes
-
-  useEffect(() => {
-    loadComments();
+  // Load comments
+  const loadComments = useCallback(async () => {
+    try {
+      const data = await getComments(videoId);
+      setComments(data);
+    } catch {
+      console.log("Failed to load comments");
+    }
   }, [videoId]);
 
-  const loadComments = async () => {
+  // Fetch comments whenever video changes
+  useEffect(() => {
+    loadComments();
+  }, [loadComments]);
 
-    try {
-
-      const data = await getComments(videoId);
-
-      setComments(data);
-
-    } catch (error) {
-
-      console.log(error);
-
-    }
-
-  };
-
-  // Add new comment
-
+  // Add comment
   const handleAddComment = async () => {
 
-    if (!newComment.trim()) return;
+    if (!newComment.trim()) {
+      return;
+    }
 
     try {
 
@@ -54,22 +47,22 @@ function CommentSection({ videoId }) {
       });
 
       setNewComment("");
-
       loadComments();
 
-    } catch (error) {
+    } catch {
 
-      console.log(error);
+      alert("Please login to add comments.");
 
     }
 
   };
 
-  // Update existing comment
-
+  // Update comment
   const handleUpdateComment = async () => {
 
-    if (!newComment.trim() || !editId) return;
+    if (!newComment.trim() || !editId) {
+      return;
+    }
 
     try {
 
@@ -79,29 +72,28 @@ function CommentSection({ videoId }) {
 
       setEditId(null);
       setNewComment("");
-
       loadComments();
 
-    } catch (error) {
+    } catch {
 
-      console.log(error);
+      alert("Please login to update comments.");
 
     }
 
   };
 
-  // Delete selected comment
-
+  // Delete comment
   const handleDeleteComment = async (id) => {
 
     try {
 
       await deleteComment(id);
-
       loadComments();
 
-    } catch (error) {
-      alert("Please login to add comments.");
+    } catch {
+
+      alert("Please login to delete comments.");
+
     }
 
   };
@@ -121,19 +113,26 @@ function CommentSection({ videoId }) {
           }
           value={newComment}
           disabled={!isAuthenticated}
-          onChange={(event) => setNewComment(event.target.value)}
+          onChange={(event) =>
+            setNewComment(event.target.value)
+          }
         />
 
         <button
           disabled={!isAuthenticated}
           onClick={() => {
+
             if (!isAuthenticated) {
               alert("Please login to add comments.");
               return;
             }
-            editId
-              ? handleUpdateComment()
-              : handleAddComment();
+
+            if (editId) {
+              handleUpdateComment();
+            } else {
+              handleAddComment();
+            }
+
           }}
         >
 
@@ -158,24 +157,17 @@ function CommentSection({ videoId }) {
 
               <h4>{comment.user}</h4>
 
-              {/* Only owner can edit/delete */}
-
               {user?.username === comment.user && (
 
                 <div className="comment-buttons">
 
                   <button
                     onClick={() => {
-
                       setEditId(comment._id);
-
                       setNewComment(comment.text);
-
                     }}
                   >
-
                     Edit
-
                   </button>
 
                   <button
@@ -183,9 +175,7 @@ function CommentSection({ videoId }) {
                       handleDeleteComment(comment._id)
                     }
                   >
-
                     Delete
-
                   </button>
 
                 </div>
@@ -209,3 +199,4 @@ function CommentSection({ videoId }) {
 }
 
 export default CommentSection;
+

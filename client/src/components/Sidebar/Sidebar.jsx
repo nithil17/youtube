@@ -1,145 +1,159 @@
-import { Link, useNavigate } from "react-router-dom";
+// Navigation
+import { Link,useNavigate } from "react-router-dom";
+
+// React
 import { useContext } from "react";
 
+// Icons
 import {
-    FaHome,
-    FaPlusSquare,
-    FaChartBar,
-    FaHistory,
-    FaThumbsUp,
-    FaSignInAlt,
-    FaUserPlus,
-    FaSignOutAlt
+  FaHome,
+  FaPlusSquare,
+  FaChartBar,
+  FaHistory,
+  FaThumbsUp,
+  FaSignInAlt,
+  FaUserPlus,
+  FaSignOutAlt
 } from "react-icons/fa";
 
+// Authentication Context
 import { AuthContext } from "../../context/AuthContext";
 
+// Styles
 import "./Sidebar.css";
 
-const Sidebar = ({ isSidebarOpen }) => {
+const Sidebar=({isSidebarOpen})=>{
 
-    const navigate = useNavigate();
+  const navigate=useNavigate();
 
-    const { isAuthenticated, logout } =
-        useContext(AuthContext);
+  const {isAuthenticated,logout}=useContext(AuthContext);
 
-    if (!isSidebarOpen) {
+  return(
 
-        return null;
+    // Add open/collapsed class based on sidebar state
 
-    }
+    <aside
+      className={`sidebar ${isSidebarOpen?"open":"collapsed"}`}
+    >
 
-    return (
+      {/* Home */}
 
-        <aside className="sidebar">
+      <Link
+        to="/"
+        className="sidebar-item"
+      >
+        <FaHome/>
+        <span>Home</span>
+      </Link>
+
+      {
+
+        isAuthenticated?(
+
+          <>
+
+            {/* Add Video */}
 
             <Link
-                to="/"
-                className="sidebar-item"
+              to="/add-video"
+              className="sidebar-item"
             >
-                <FaHome />
-                <span>Home</span>
+              <FaPlusSquare/>
+              <span>Add Video</span>
             </Link>
 
-            {
+            {/* Admin Dashboard */}
 
-                isAuthenticated ? (
+            <Link
+              to="/admin"
+              className="sidebar-item"
+            >
+              <FaChartBar/>
+              <span>Admin Dashboard</span>
+            </Link>
 
-                    <>
+            {/* Create Channel */}
 
-                        <Link
-                            to="/add-video"
-                            className="sidebar-item"
-                        >
-                            <FaPlusSquare />
-                            <span>Add Video</span>
-                        </Link>
+            <Link
+              to="/create-channel"
+              className="sidebar-item"
+            >
+              <FaPlusSquare/>
+              <span>Create Channel</span>
+            </Link>
 
-                        <Link
-                            to="/admin"
-                            className="sidebar-item"
-                        >
-                            <FaChartBar />
-                            <span>Admin Dashboard</span>
-                        </Link>
+            {/* Placeholder pages */}
 
-                        <Link
-                            to="/create-channel"
-                            className="sidebar-item"
-                        >
-                            <FaPlusSquare />
-                            <span>Create Channel</span>
-                        </Link>
+            <Link
+              to="/"
+              className="sidebar-item"
+            >
+              <FaHistory/>
+              <span>History</span>
+            </Link>
 
-                        <Link
-                            to="/"
-                            className="sidebar-item"
-                        >
-                            <FaHistory />
-                            <span>History</span>
-                        </Link>
+            <Link
+              to="/"
+              className="sidebar-item"
+            >
+              <FaThumbsUp/>
+              <span>Liked Videos</span>
+            </Link>
 
-                        <Link
-                            to="/"
-                            className="sidebar-item"
-                        >
-                            <FaThumbsUp />
-                            <span>Liked Videos</span>
-                        </Link>
+            {/* Logout */}
 
+            <div
+              className="sidebar-item"
+              onClick={()=>{
 
+                logout();
 
-                        <div
+                navigate("/login");
 
-                            className="sidebar-item"
+              }}
+            >
 
-                            onClick={() => {
+              <FaSignOutAlt/>
 
-                                logout();
+              <span>Logout</span>
 
-                                navigate("/login");
+            </div>
 
-                            }}
+          </>
 
-                        >
+        ):(
 
-                            <FaSignOutAlt />
+          <>
 
-                            <span>Logout</span>
+            {/* Login */}
 
-                        </div>
+            <Link
+              to="/login"
+              className="sidebar-item"
+            >
+              <FaSignInAlt/>
+              <span>Login</span>
+            </Link>
 
-                    </>
+            {/* Register */}
 
-                ) : (
+            <Link
+              to="/register"
+              className="sidebar-item"
+            >
+              <FaUserPlus/>
+              <span>Register</span>
+            </Link>
 
-                    <>
+          </>
 
-                        <Link
-                            to="/login"
-                            className="sidebar-item"
-                        >
-                            <FaSignInAlt />
-                            <span>Login</span>
-                        </Link>
+        )
 
-                        <Link
-                            to="/register"
-                            className="sidebar-item"
-                        >
-                            <FaUserPlus />
-                            <span>Register</span>
-                        </Link>
+      }
 
-                    </>
+    </aside>
 
-                )
-
-            }
-
-        </aside>
-
-    );
+  );
 
 };
 

@@ -1,9 +1,12 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useContext } from "react";
+import { AuthContext } from "../../context/AuthContext";
 import { addVideo } from "../../services/videoService";
 import { getChannels } from "../../services/channelService";
 import "./AddVideo.css";
 
 function AddVideo() {
+
+  const { user } = useContext(AuthContext);
 
   const [formData, setFormData] = useState({
     title: "",
@@ -12,7 +15,7 @@ function AddVideo() {
     thumbnail: "",
     channelId: "",
     views: "",
-    category: "",
+    category: ""
   });
 
   const [channels, setChannels] = useState([]);
@@ -21,15 +24,27 @@ function AddVideo() {
     loadChannels();
   }, []);
 
+  // Load only logged-in user's channels
   const loadChannels = async () => {
     try {
+
       const data = await getChannels();
+
+      console.log("Logged in user:", user);
+      console.log("Channels:", data);
+
       setChannels(data);
+
+      setChannels(data);
+
     } catch (error) {
+
       console.log(error);
+
     }
   };
 
+  // Update form values
   const handleChange = (event) => {
     setFormData({
       ...formData,
@@ -37,10 +52,11 @@ function AddVideo() {
     });
   };
 
+  // Submit video
   const handleSubmit = async (event) => {
+
     event.preventDefault();
 
-    // Basic validation
     if (!formData.title.trim()) {
       return alert("Title is required");
     }
@@ -51,6 +67,14 @@ function AddVideo() {
 
     if (!formData.thumbnail.trim()) {
       return alert("Thumbnail URL is required");
+    }
+
+    if (!formData.channelId) {
+      return alert("Please select a channel");
+    }
+
+    if (!formData.category.trim()) {
+      return alert("Category is required");
     }
 
     try {
@@ -66,14 +90,18 @@ function AddVideo() {
         thumbnail: "",
         channelId: "",
         views: "",
-        category: "",
+        category: ""
       });
 
     } catch (error) {
 
-      alert(error.message);
+      alert(
+        error.response?.data?.message ||
+        "Failed to add video"
+      );
 
     }
+
   };
 
   return (
@@ -125,7 +153,7 @@ function AddVideo() {
             Select Channel
           </option>
 
-          {channels.map((channel) => (
+          {channels.map(channel => (
 
             <option
               key={channel._id}
@@ -137,6 +165,7 @@ function AddVideo() {
           ))}
 
         </select>
+
         <input
           name="views"
           placeholder="Views"
@@ -152,7 +181,9 @@ function AddVideo() {
         />
 
         <button type="submit">
+
           Add Video
+
         </button>
 
       </form>
