@@ -1,4 +1,4 @@
-# 🎥 YouTube Clone - MERN Stack
+# YouTube Clone - MERN Stack
 
 A full-stack YouTube Clone built using the MERN Stack (MongoDB, Express.js, React, and Node.js). The application allows users to browse videos, search and filter content, create channels, upload and manage videos, like/dislike videos, and interact through a complete comment system with JWT-based authentication.
 
