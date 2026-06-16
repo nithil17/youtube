@@ -1,56 +1,47 @@
-// JWT verification middleware
-
+// Imports
 import jwt from "jsonwebtoken";
 
-const authMiddleware = (req, res, next) => {
+// Verify JWT
+const authMiddleware=(req,res,next)=>{
 
-  try {
+try{
 
-    const authHeader = req.headers.authorization;
+const authHeader=req.headers.authorization;
 
-    if (!authHeader) {
+if(!authHeader){
 
-      return res.status(401).json({
+return res.status(401).json({
+message:"Access denied"
+});
 
-        message: "Access denied"
+}
 
-      });
+const token=authHeader.split(" ")[1];
 
-    }
+if(!token){
 
-    const token = authHeader.split(" ")[1];
+return res.status(401).json({
+message:"Token missing"
+});
 
-    if (!token) {
+}
 
-      return res.status(401).json({
+const decoded=jwt.verify(
+token,
+process.env.JWT_SECRET
+);
 
-        message: "Token missing"
+req.user=decoded;
 
-      });
+next();
 
-    }
+}catch(error){
 
-    const decoded = jwt.verify(
+res.status(401).json({
+message:"Invalid token"
+});
 
-      token,
-
-      process.env.JWT_SECRET
-
-    );
-
-    req.user = decoded;
-
-    next();
-
-  } catch (error) {
-
-    return res.status(401).json({
-
-      message: "Invalid Token"
-
-    });
-
-  }
+}
 
 };
 

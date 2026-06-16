@@ -10,39 +10,41 @@ import mongoose from "mongoose";
 
 const commentSchema = new mongoose.Schema({
 
-    videoId:{
-        type:mongoose.Schema.Types.ObjectId,
-        ref:"Video",
-        required:true
+    videoId: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Video",
+        required: true
     },
 
-    userId:{
-        type:mongoose.Schema.Types.ObjectId,
-        ref:"User"
+    userId: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "User"
     },
 
-    user:{
-        type:String,
-        required:true
+    user: {
+        type: String,
+        required: true
     },
 
-    text:{
-        type:String,
-        required:true
+    text: {
+        type: String,
+        required: [true, "Comment is required"],
+        trim: true,
+        maxlength: [500, "Maximum 500 characters"]
     }
 
 },
 
-{
+    {
 
-    timestamps:true
+        timestamps: true
 
-});
+    });
 
 // =====================
 // Export
 // =====================
 
-const Comment = mongoose.model("Comment",commentSchema);
+const Comment = mongoose.model("Comment", commentSchema);
 
 export default Comment;

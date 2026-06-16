@@ -1,57 +1,22 @@
-const express = require("express");
+// Imports
+import express from "express";
+import authMiddleware from "../middleware/authMiddleware.js";
 
-const router = express.Router();
+import{
+getCommentsByVideo,
+addComment,
+updateComment,
+deleteComment
+}from "../controllers/commentController.js";
 
-const {
+const router=express.Router();
 
-    getCommentsByVideo,
+// Public
+router.get("/:videoId",getCommentsByVideo);
 
-    addComment,
+// Protected
+router.post("/",authMiddleware,addComment);
+router.put("/:id",authMiddleware,updateComment);
+router.delete("/:id",authMiddleware,deleteComment);
 
-    updateComment,
-
-    deleteComment
-
-} = require("../controllers/commentController");
-
-// GET COMMENTS FOR A VIDEO
-
-router.get(
-
-    "/video/:videoId",
-
-    getCommentsByVideo
-
-);
-
-// ADD COMMENT
-
-router.post(
-
-    "/",
-
-    addComment
-
-);
-
-// UPDATE COMMENT
-
-router.put(
-
-    "/:id",
-
-    updateComment
-
-);
-
-// DELETE COMMENT
-
-router.delete(
-
-    "/:id",
-
-    deleteComment
-
-);
-
-module.exports = router;
+export default router;

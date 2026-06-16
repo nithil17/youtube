@@ -1,0 +1,26 @@
+[
+  {
+    "title":"Learn React in 30 Minutes",
+    "description":"React basics for beginners",
+    "videoUrl":"https://www.w3schools.com/html/mov_bbb.mp4",
+    "thumbnail":"https://picsum.photos/500/300?1",
+    "channel":"Code with John",
+    "uploader":"john",
+    "views":15200,
+    "likes":1023,
+    "dislikes":45,
+    "category":"React"
+  },
+  {
+    "title":"Node Crash Course",
+    "description":"Complete Express introduction",
+    "videoUrl":"https://www.w3schools.com/html/movie.mp4",
+    "thumbnail":"https://picsum.photos/500/300?2",
+    "channel":"Backend Master",
+    "uploader":"admin",
+    "views":24000,
+    "likes":2100,
+    "dislikes":30,
+    "category":"Node"
+  }
+]

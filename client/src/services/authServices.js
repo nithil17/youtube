@@ -1,117 +1,51 @@
-import { API_URL } from "../constants/api";
+// Auth Service
 
-const API = `${API_URL}/auth`;
+import api from "./api";
 
-// ===========================
-// REGISTER USER
-// ===========================
+// Register
 
-export const registerUser = async (userData) => {
+export const registerUser=async(userData)=>{
 
-  const response = await fetch(`${API}/register`, {
+const response=await api.post(
 
-    method: "POST",
+"/auth/register",
 
-    headers: {
+userData
 
-      "Content-Type": "application/json"
+);
 
-    },
-
-    body: JSON.stringify(userData)
-
-  });
-
-  const data = await response.json();
-
-  if (!response.ok) {
-
-    throw new Error(
-
-      data.message || "Registration failed"
-
-    );
-
-  }
-
-  return data;
+return response.data;
 
 };
 
-// ===========================
-// LOGIN USER
-// ===========================
+// Login
 
-export const loginUser = async (userData) => {
+export const loginUser=async(userData)=>{
 
-  const response = await fetch(`${API}/login`, {
+const response=await api.post(
 
-    method: "POST",
+"/auth/login",
 
-    headers: {
+userData
 
-      "Content-Type": "application/json"
+);
 
-    },
-
-    body: JSON.stringify(userData)
-
-  });
-
-  const data = await response.json();
-
-  if (!response.ok) {
-
-    throw new Error(
-
-      data.message || "Login failed"
-
-    );
-
-  }
-
-  return data;
+return response.data;
 
 };
 
-// ===========================
-// RESET PASSWORD
-// ===========================
+// Reset Password
 
-export const resetPassword = async (userData) => {
+export const resetPassword=async(userData)=>{
 
-  const response = await fetch(
+const response=await api.put(
 
-    `${API}/reset-password`,
+"/auth/reset-password",
 
-    {
+userData
 
-      method: "PUT",
+);
 
-      headers: {
-
-        "Content-Type": "application/json"
-
-      },
-
-      body: JSON.stringify(userData)
-
-    }
-
-  );
-
-  const data = await response.json();
-
-  if (!response.ok) {
-
-    throw new Error(
-
-      data.message || "Reset password failed"
-
-    );
-
-  }
-
-  return data;
+return response.data;
 
 };

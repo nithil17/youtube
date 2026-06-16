@@ -1,135 +1,112 @@
-const Comment = require("../models/Comment");
+// Models
+import Comment from "../models/Comment.js";
+import User from "../models/User.js";
 
-// GET COMMENTS BY VIDEO
-
-const getCommentsByVideo = async (req, res) => {
-
-    try {
-
-        const comments = await Comment.find({
-
-            videoId: req.params.videoId
-
-        });
-
-        res.status(200).json(comments);
-
-    }
-
-    catch (error) {
-
-        res.status(500).json({
-
-            message: error.message
-
-        });
-
-    }
-
+// Get comments of a video
+const getCommentsByVideo=async(req,res)=>{
+try{
+const comments=await Comment.find({
+videoId:req.params.videoId
+}).sort({createdAt:-1});
+res.status(200).json(comments);
+}catch(error){
+res.status(500).json({message:error.message});
+}
 };
 
-// ADD COMMENT
+// Add comment using logged-in user
+const addComment=async(req,res)=>{
+try{
 
-const addComment = async (req, res) => {
+const user=await User.findById(req.user.id);
 
-    try {
+if(!user){
+return res.status(404).json({
+message:"User not found"
+});
+}
 
-        const comment = new Comment(req.body);
+const comment=await Comment.create({
+videoId:req.body.videoId,
+userId:user._id,
+user:user.username,
+text:req.body.text
+});
 
-        const savedComment = await comment.save();
+res.status(201).json(comment);
 
-        res.status(201).json(savedComment);
-
-    }
-
-    catch (error) {
-
-        res.status(500).json({
-
-            message: error.message
-
-        });
-
-    }
-
+}catch(error){
+res.status(500).json({
+message:error.message
+});
+}
 };
 
-// UPDATE COMMENT
+// Update own comment
+const updateComment=async(req,res)=>{
+try{
 
-const updateComment = async (req, res) => {
+const comment=await Comment.findById(req.params.id);
 
-    try {
+if(!comment){
+return res.status(404).json({
+message:"Comment not found"
+});
+}
 
-        const updatedComment = await Comment.findByIdAndUpdate(
+if(comment.userId.toString()!==req.user.id){
+return res.status(403).json({
+message:"Unauthorized"
+});
+}
 
-            req.params.id,
+comment.text=req.body.text;
 
-            req.body,
+await comment.save();
 
-            {
+res.status(200).json(comment);
 
-                new: true
-
-            }
-
-        );
-
-        res.status(200).json(updatedComment);
-
-    }
-
-    catch (error) {
-
-        res.status(500).json({
-
-            message: error.message
-
-        });
-
-    }
-
+}catch(error){
+res.status(500).json({
+message:error.message
+});
+}
 };
 
-// DELETE COMMENT
+// Delete own comment
+const deleteComment=async(req,res)=>{
+try{
 
-const deleteComment = async (req, res) => {
+const comment=await Comment.findById(req.params.id);
 
-    try {
+if(!comment){
+return res.status(404).json({
+message:"Comment not found"
+});
+}
 
-        await Comment.findByIdAndDelete(
+if(comment.userId.toString()!==req.user.id){
+return res.status(403).json({
+message:"Unauthorized"
+});
+}
 
-            req.params.id
+await Comment.findByIdAndDelete(req.params.id);
 
-        );
+res.status(200).json({
+message:"Comment deleted"
+});
 
-        res.status(200).json({
-
-            message: "Comment deleted"
-
-        });
-
-    }
-
-    catch (error) {
-
-        res.status(500).json({
-
-            message: error.message
-
-        });
-
-    }
-
+}catch(error){
+res.status(500).json({
+message:error.message
+});
+}
 };
 
-module.exports = {
-
-    getCommentsByVideo,
-
-    addComment,
-
-    updateComment,
-
-    deleteComment
-
+export{
+getCommentsByVideo,
+addComment,
+updateComment,
+deleteComment
 };

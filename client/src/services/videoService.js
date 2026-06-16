@@ -1,134 +1,50 @@
-import { API_URL } from "../constants/api";
+// Video Service
+import api from "./api";
 
-const API = `${API_URL}/videos`;
-
-// GET ALL VIDEOS
-
-export const getVideos = async () => {
-
-    console.log("Fetching:", API);
-
-    const response = await fetch(API);
-
-    console.log("Response:", response);
-
-    if (!response.ok) {
-
-        throw new Error("Failed to fetch videos");
-
-    }
-
-  const data = await response.json();
-
-
-
-return data;
-
+// Get All Videos
+export const getVideos=async()=>{
+const response=await api.get("/videos");
+return response.data;
 };
 
-// GET SINGLE VIDEO
-
-export const getVideoById = async (id) => {
-
-    const response = await fetch(`${API}/${id}`);
-
-    if (!response.ok) {
-
-        throw new Error("Failed to fetch video");
-
-    }
-
-    return await response.json();
-
+// Get Single Video
+export const getVideoById=async(id)=>{
+const response=await api.get(`/videos/${id}`);
+return response.data;
 };
 
-// ADD VIDEO
-
-export const addVideo = async (video) => {
-
-    const response = await fetch(API, {
-
-        method: "POST",
-
-        headers: {
-
-            "Content-Type": "application/json"
-
-        },
-
-        body: JSON.stringify(video)
-
-    });
-
-    if (!response.ok) {
-
-        throw new Error("Failed to add video");
-
-    }
-
-    return await response.json();
-
+// Add Video
+export const addVideo=async(video)=>{
+const response=await api.post("/videos",video);
+return response.data;
 };
 
-// UPDATE VIDEO
-
-export const updateVideo = async (id, video) => {
-
-    const response = await fetch(`${API}/${id}`, {
-
-        method: "PUT",
-
-        headers: {
-
-            "Content-Type": "application/json"
-
-        },
-
-        body: JSON.stringify(video)
-
-    });
-
-    if (!response.ok) {
-
-        throw new Error("Failed to update video");
-
-    }
-
-    return await response.json();
-
+// Update Video
+export const updateVideo=async(id,video)=>{
+const response=await api.put(`/videos/${id}`,video);
+return response.data;
 };
 
-// DELETE VIDEO
-
-export const deleteVideo = async (id) => {
-
-    const response = await fetch(`${API}/${id}`, {
-
-        method: "DELETE"
-
-    });
-
-    if (!response.ok) {
-
-        throw new Error("Failed To Delete Video");
-
-    }
-
-    return await response.json();
-
+// Delete Video
+export const deleteVideo=async(id)=>{
+const response=await api.delete(`/videos/${id}`);
+return response.data;
 };
 
-
-// get video by channel
-export const getVideosByChannel = async (channel) => {
-  const response = await fetch(
-    `${API}/channel/${encodeURIComponent(channel)}`
-  );
-
-  if (!response.ok) {
-    throw new Error("Failed to fetch channel videos");
-  }
-
-  return await response.json();
+// Like Video
+export const likeVideo=async(id)=>{
+const response=await api.put(`/videos/like/${id}`);
+return response.data;
 };
 
+// Dislike Video
+export const dislikeVideo=async(id)=>{
+const response=await api.put(`/videos/dislike/${id}`);
+return response.data;
+};
+
+// Get Channel Videos
+export const getVideosByChannel=async(channel)=>{
+const response=await api.get(`/videos/channel/${encodeURIComponent(channel)}`);
+return response.data;
+};

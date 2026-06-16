@@ -1,0 +1,14 @@
+[
+  {
+    "username":"john",
+    "email":"john@example.com",
+    "password":"$2b$10$1MZQKQmR5t8V1jQ8mNQmQe4m4uT2P3m7X3uY9fQv4L5mN6pR7sT8u",
+    "role":"user"
+  },
+  {
+    "username":"admin",
+    "email":"admin@example.com",
+    "password":"$2b$10$1MZQKQmR5t8V1jQ8mNQmQe4m4uT2P3m7X3uY9fQv4L5mN6pR7sT8u",
+    "role":"admin"
+  }
+]

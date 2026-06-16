@@ -14,6 +14,7 @@ import Channel from "./pages/Channel/Channel";
 import EditVideo from "./pages/EditVideo/EditVideo";
 import ResetPassword from "./pages/ResetPassword/ResetPassword";
 import Register from "./pages/Register/Register";
+import CreateChannel from "./pages/CreateChannel/CreateChannel";
 
 function App() {
   const [searchText, setSearchText] = useState("");
@@ -93,6 +94,15 @@ function App() {
               element={
                 <ProtectedRoute>
                   <EditVideo />
+                </ProtectedRoute>
+              }
+            />
+
+            <Route
+              path="/create-channel"
+              element={
+                <ProtectedRoute>
+                  <CreateChannel />
                 </ProtectedRoute>
               }
             />

@@ -1,0 +1,33 @@
+.create-channel-container{
+max-width:600px;
+margin:40px auto;
+padding:20px;
+}
+
+.create-channel-form{
+display:flex;
+flex-direction:column;
+gap:15px;
+}
+
+.create-channel-form input,
+.create-channel-form textarea{
+padding:12px;
+border:1px solid #ccc;
+border-radius:8px;
+font-size:15px;
+}
+
+.create-channel-form textarea{
+min-height:120px;
+resize:vertical;
+}
+
+.create-channel-form button{
+padding:12px;
+border:none;
+background:red;
+color:white;
+border-radius:8px;
+cursor:pointer;
+}

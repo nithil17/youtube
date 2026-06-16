@@ -1,0 +1,14 @@
+[
+  {
+    "channelName":"Code with John",
+    "description":"React and MERN tutorials",
+    "channelBanner":"https://picsum.photos/1200/300",
+    "subscribers":5200
+  },
+  {
+    "channelName":"Backend Master",
+    "description":"Node.js and Express videos",
+    "channelBanner":"https://picsum.photos/1200/301",
+    "subscribers":3100
+  }
+]

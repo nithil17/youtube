@@ -1,111 +1,166 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { addVideo } from "../../services/videoService";
+import { getChannels } from "../../services/channelService";
+import "./AddVideo.css";
 
-import "./AddVideo.css"
+function AddVideo() {
 
+  const [formData, setFormData] = useState({
+    title: "",
+    description: "",
+    videoUrl: "",
+    thumbnail: "",
+    channelId: "",
+    views: "",
+    category: "",
+  });
 
+  const [channels, setChannels] = useState([]);
 
+  useEffect(() => {
+    loadChannels();
+  }, []);
 
-function AddVideo(params) {
+  const loadChannels = async () => {
+    try {
+      const data = await getChannels();
+      setChannels(data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
-    const [formData, setFormData] = useState({
+  const handleChange = (event) => {
+    setFormData({
+      ...formData,
+      [event.target.name]: event.target.value
+    });
+  };
 
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+
+    // Basic validation
+    if (!formData.title.trim()) {
+      return alert("Title is required");
+    }
+
+    if (!formData.videoUrl.trim()) {
+      return alert("Video URL is required");
+    }
+
+    if (!formData.thumbnail.trim()) {
+      return alert("Thumbnail URL is required");
+    }
+
+    try {
+
+      await addVideo(formData);
+
+      alert("Video Added Successfully");
+
+      setFormData({
         title: "",
-
+        description: "",
+        videoUrl: "",
         thumbnail: "",
-
-        channel: "",
-
+        channelId: "",
         views: "",
+        category: "",
+      });
 
-        category: ""
-    })
+    } catch (error) {
 
-    const handleChange = (event) => {
-        setFormData({
-            ...formData,
-            [event.target.name]: event.target.value
-        });
+      alert(error.message);
+
     }
+  };
 
-    const handleSubmit = async (event) => {
-        event.preventDefault();
-        try {
-            await addVideo(formData);
+  return (
 
-            alert("Video Added Successfully");
+    <div className="add-video-container">
 
-            setFormData({
+      <h2>Add New Video</h2>
 
-                title: "",
+      <form
+        className="add-video-form"
+        onSubmit={handleSubmit}
+      >
 
-                thumbnail: "",
+        <input
+          name="title"
+          placeholder="Title"
+          value={formData.title}
+          onChange={handleChange}
+        />
 
-                channel: "",
+        <textarea
+          name="description"
+          placeholder="Description"
+          value={formData.description}
+          onChange={handleChange}
+        />
 
-                views: "",
+        <input
+          name="videoUrl"
+          placeholder="Video URL"
+          value={formData.videoUrl}
+          onChange={handleChange}
+        />
 
-                category: ""
+        <input
+          name="thumbnail"
+          placeholder="Thumbnail URL"
+          value={formData.thumbnail}
+          onChange={handleChange}
+        />
 
-            });
+        <select
+          name="channelId"
+          value={formData.channelId}
+          onChange={handleChange}
+        >
 
-        } catch (error) {
-            alert(error.message);
-        }
-    }
+          <option value="">
+            Select Channel
+          </option>
 
-    return(
-        <div className="add-video-container">
-            <h2>
-            Add New Video
-            </h2>
-            <form className="add-video-form" onSubmit={handleSubmit}>
-                    <input
-                    name="title"
-                    placeholder="Title"
-                    value={formData.title}
-                    onChange={handleChange}
-                />
+          {channels.map((channel) => (
 
-                <input
-                    name="thumbnail"
-                    placeholder="Thumbnail URL"
-                    value={formData.thumbnail}
-                    onChange={handleChange}
-                />
+            <option
+              key={channel._id}
+              value={channel._id}
+            >
+              {channel.channelName}
+            </option>
 
-                <input
-                    name="channel"
-                    placeholder="Channel"
-                    value={formData.channel}
-                    onChange={handleChange}
-                />
+          ))}
 
-                <input
-                    name="views"
-                    placeholder="Views"
-                    value={formData.views}
-                    onChange={handleChange}
-                />
+        </select>
+        <input
+          name="views"
+          placeholder="Views"
+          value={formData.views}
+          onChange={handleChange}
+        />
 
-                <input
-                    name="category"
-                    placeholder="Category"
-                    value={formData.category}
-                    onChange={handleChange}
-                />
+        <input
+          name="category"
+          placeholder="Category"
+          value={formData.category}
+          onChange={handleChange}
+        />
 
-                <button type="submit">
+        <button type="submit">
+          Add Video
+        </button>
 
-                    Add Video
+      </form>
 
-                </button>
-            </form>
+    </div>
 
-        </div>
-    )
+  );
 
 }
 
 export default AddVideo;
-

@@ -2,14 +2,14 @@ import { Link, useNavigate } from "react-router-dom";
 import { useContext } from "react";
 
 import {
-  FaHome,
-  FaPlusSquare,
-  FaChartBar,
-  FaHistory,
-  FaThumbsUp,
-  FaSignInAlt,
-  FaUserPlus,
-  FaSignOutAlt
+    FaHome,
+    FaPlusSquare,
+    FaChartBar,
+    FaHistory,
+    FaThumbsUp,
+    FaSignInAlt,
+    FaUserPlus,
+    FaSignOutAlt
 } from "react-icons/fa";
 
 import { AuthContext } from "../../context/AuthContext";
@@ -18,118 +18,128 @@ import "./Sidebar.css";
 
 const Sidebar = ({ isSidebarOpen }) => {
 
-  const navigate = useNavigate();
+    const navigate = useNavigate();
 
-  const { isAuthenticated, logout } =
-    useContext(AuthContext);
+    const { isAuthenticated, logout } =
+        useContext(AuthContext);
 
-  if (!isSidebarOpen) {
+    if (!isSidebarOpen) {
 
-    return null;
+        return null;
 
-  }
+    }
 
-  return (
+    return (
 
-    <aside className="sidebar">
-
-      <Link
-        to="/"
-        className="sidebar-item"
-      >
-        <FaHome />
-        <span>Home</span>
-      </Link>
-
-      {
-
-        isAuthenticated ? (
-
-          <>
+        <aside className="sidebar">
 
             <Link
-              to="/add-video"
-              className="sidebar-item"
+                to="/"
+                className="sidebar-item"
             >
-              <FaPlusSquare />
-              <span>Add Video</span>
+                <FaHome />
+                <span>Home</span>
             </Link>
 
-            <Link
-              to="/admin"
-              className="sidebar-item"
-            >
-              <FaChartBar />
-              <span>Admin Dashboard</span>
-            </Link>
+            {
 
-            <Link
-              to="/"
-              className="sidebar-item"
-            >
-              <FaHistory />
-              <span>History</span>
-            </Link>
+                isAuthenticated ? (
 
-            <Link
-              to="/"
-              className="sidebar-item"
-            >
-              <FaThumbsUp />
-              <span>Liked Videos</span>
-            </Link>
+                    <>
 
-            <div
+                        <Link
+                            to="/add-video"
+                            className="sidebar-item"
+                        >
+                            <FaPlusSquare />
+                            <span>Add Video</span>
+                        </Link>
 
-              className="sidebar-item"
+                        <Link
+                            to="/admin"
+                            className="sidebar-item"
+                        >
+                            <FaChartBar />
+                            <span>Admin Dashboard</span>
+                        </Link>
 
-              onClick={() => {
+                        <Link
+                            to="/create-channel"
+                            className="sidebar-item"
+                        >
+                            <FaPlusSquare />
+                            <span>Create Channel</span>
+                        </Link>
 
-                logout();
+                        <Link
+                            to="/"
+                            className="sidebar-item"
+                        >
+                            <FaHistory />
+                            <span>History</span>
+                        </Link>
 
-                navigate("/login");
+                        <Link
+                            to="/"
+                            className="sidebar-item"
+                        >
+                            <FaThumbsUp />
+                            <span>Liked Videos</span>
+                        </Link>
 
-              }}
 
-            >
 
-              <FaSignOutAlt />
+                        <div
 
-              <span>Logout</span>
+                            className="sidebar-item"
 
-            </div>
+                            onClick={() => {
 
-          </>
+                                logout();
 
-        ) : (
+                                navigate("/login");
 
-          <>
+                            }}
 
-            <Link
-              to="/login"
-              className="sidebar-item"
-            >
-              <FaSignInAlt />
-              <span>Login</span>
-            </Link>
+                        >
 
-            <Link
-              to="/register"
-              className="sidebar-item"
-            >
-              <FaUserPlus />
-              <span>Register</span>
-            </Link>
+                            <FaSignOutAlt />
 
-          </>
+                            <span>Logout</span>
 
-        )
+                        </div>
 
-      }
+                    </>
 
-    </aside>
+                ) : (
 
-  );
+                    <>
+
+                        <Link
+                            to="/login"
+                            className="sidebar-item"
+                        >
+                            <FaSignInAlt />
+                            <span>Login</span>
+                        </Link>
+
+                        <Link
+                            to="/register"
+                            className="sidebar-item"
+                        >
+                            <FaUserPlus />
+                            <span>Register</span>
+                        </Link>
+
+                    </>
+
+                )
+
+            }
+
+        </aside>
+
+    );
 
 };
 

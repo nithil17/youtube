@@ -1,26 +1,38 @@
-const express = require("express");
+// Imports
+import express from "express";
+import authMiddleware from "../middleware/authMiddleware.js";
 
-const router = express.Router();
+import{
+getAllVideos,
+getVideoById,
+addVideo,
+updateVideo,
+deleteVideo,
+likeVideo,
+dislikeVideo,
+getVideosByChannel
+}from "../controllers/videoController.js";
 
-const {
-  getAllVideos,
-  getVideoById,
-  addVideo,
-  updateVideo,
-  deleteVideo,
-  getVideosByChannel
-} = require("../controllers/videoController");
+const router=express.Router();
 
-router.get("/", getAllVideos);
+// Public routes
 
-router.get("/channel/:channel", getVideosByChannel);
+router.get("/",getAllVideos);
 
-router.get("/:id", getVideoById);
+router.get("/channel/:channel",getVideosByChannel);
 
-router.post("/", addVideo);
+router.get("/:id",getVideoById);
 
-router.put("/:id", updateVideo);
+// Protected routes
 
-router.delete("/:id", deleteVideo);
+router.post("/",authMiddleware,addVideo);
 
-module.exports = router;
+router.put("/:id",authMiddleware,updateVideo);
+
+router.delete("/:id",authMiddleware,deleteVideo);
+
+router.put("/like/:id",authMiddleware,likeVideo);
+
+router.put("/dislike/:id",authMiddleware,dislikeVideo);
+
+export default router;

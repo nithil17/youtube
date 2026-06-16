@@ -1,26 +1,88 @@
-import React from 'react'
-import { useState } from 'react';
+// Imports
+import { useState, useEffect, useContext } from "react";
+import { AuthContext } from "../../context/AuthContext";
+import { likeVideo, dislikeVideo } from "../../services/videoService";
+import "./VideoActions.css";
 
-import "./VideoActions.css"
+function VideoAction({ videoId, likes = 0, dislikes = 0 }) {
 
-function VideoAction() {
 
-  const [likes, setLikes] = useState(300);
-  const [disLikes, setDislikes] = useState(14);
-  return (
-       <div className='video-actions'>
-            <button
-              onClick={() => setLikes(likes + 1)}
-            >👍 {likes}
+
+    const [currentLikes, setCurrentLikes] = useState(likes);
+    const [currentDislikes, setCurrentDislikes] = useState(dislikes);
+     const { isAuthenticated } = useContext(AuthContext);
+
+    useEffect(() => {
+
+        setCurrentLikes(likes);
+        setCurrentDislikes(dislikes);
+
+    }, [likes, dislikes]);
+
+    const handleLike = async () => {
+
+        if (!isAuthenticated) {
+            alert("Please login to like videos.");
+            return;
+        }
+
+        try {
+
+            const updatedVideo = await likeVideo(videoId);
+
+            setCurrentLikes(updatedVideo.likes);
+            setCurrentDislikes(updatedVideo.dislikes);
+
+        } catch (error) {
+
+            alert("Please login to like videos.");
+
+        }
+
+    };
+
+    const handleDislike = async () => {
+
+        if (!isAuthenticated) {
+            alert("Please login to dislike videos.");
+            return;
+        }
+
+        try {
+
+            const updatedVideo = await dislikeVideo(videoId);
+
+            setCurrentLikes(updatedVideo.likes);
+            setCurrentDislikes(updatedVideo.dislikes);
+
+        } catch (error) {
+
+            alert("Please login to dislike videos.");
+
+        }
+
+    };
+
+    return (
+
+        <div className="video-actions">
+
+            <button onClick={handleLike}>
+
+                👍 {currentLikes}
+
             </button>
 
-            <button
-              onClick={() => setDislikes(disLikes + 1)}
-            >👎 {disLikes}
-            </button>
-          </div>
+            <button onClick={handleDislike}>
 
-  )
+                👎 {currentDislikes}
+
+            </button>
+
+        </div>
+
+    );
+
 }
 
-export default VideoAction
+export default VideoAction;

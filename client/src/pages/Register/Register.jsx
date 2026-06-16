@@ -7,160 +7,175 @@ import "./Register.css";
 
 function Register() {
 
-  // Store form data
-  const [formData, setFormData] = useState({
+    // Store form data
+    const [formData, setFormData] = useState({
 
-    username: "",
+        username: "",
 
-    email: "",
+        email: "",
 
-    password: ""
-
-  });
-
-  // Store loading state
-  const [loading, setLoading] = useState(false);
-
-  // Store error message
-  const [error, setError] = useState("");
-
-  const navigate = useNavigate();
-
-  // Update form fields
-  const handleChange = (event) => {
-
-    setFormData({
-
-      ...formData,
-
-      [event.target.name]: event.target.value
+        password: ""
 
     });
 
-  };
+    // Store loading state
+    const [loading, setLoading] = useState(false);
 
-  // Register user
-  const handleSubmit = async (event) => {
+    // Store error message
+    const [error, setError] = useState("");
 
-    event.preventDefault();
+    const navigate = useNavigate();
 
-    setLoading(true);
+    // Update form fields
+    const handleChange = (event) => {
 
-    setError("");
+        setFormData({
 
-    try {
+            ...formData,
 
-      await registerUser(formData);
+            [event.target.name]: event.target.value
 
-      alert("Registration Successful");
+        });
 
-      navigate("/login");
+    };
 
-    } catch (error) {
 
-      setError(error.message);
+    // Register user
+    const handleSubmit = async (event) => {
 
-    } finally {
+        event.preventDefault();
+        setError("");
 
-      setLoading(false);
-
-    }
-
-  };
-
-  return (
-
-    <div className="register-container">
-
-      <form
-        className="register-form"
-        onSubmit={handleSubmit}
-      >
-
-        <h2>Create Account</h2>
-
-        {
-
-          error &&
-
-          <p className="error-text">
-
-            {error}
-
-          </p>
-
+        // Username validation
+        if (formData.username.trim().length < 3) {
+            setError("Username must be at least 3 characters");
+            return;
         }
 
-        <input
+        // Email validation
+        const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
-          type="text"
+        if (!emailPattern.test(formData.email)) {
+            setError("Please enter a valid email address");
+            return;
+        }
 
-          name="username"
+        // Password validation
+        if (formData.password.length < 6) {
+            setError("Password must be at least 6 characters");
+            return;
+        }
 
-          placeholder="Username"
+        setLoading(true);
 
-          value={formData.username}
+        try {
+            await registerUser(formData);
 
-          onChange={handleChange}
+            alert("Registration Successful");
+            navigate("/login");
 
-          required
+        } catch (error) {
+            setError(error.message);
 
-        />
+        } finally {
+            setLoading(false);
+        }
 
-        <input
+    };
 
-          type="email"
+    return (
 
-          name="email"
+        <div className="register-container">
 
-          placeholder="Email"
+            <form
+                className="register-form"
+                onSubmit={handleSubmit}
+            >
 
-          value={formData.email}
+                <h2>Create Account</h2>
 
-          onChange={handleChange}
+                {
 
-          required
+                    error &&
 
-        />
+                    <p className="error-text">
 
-        <input
+                        {error}
 
-          type="password"
+                    </p>
 
-          name="password"
+                }
 
-          placeholder="Password"
+                <input
 
-          value={formData.password}
+                    type="text"
 
-          onChange={handleChange}
+                    name="username"
 
-          required
+                    placeholder="Username"
 
-        />
+                    value={formData.username}
 
-        <button
-          type="submit"
-          disabled={loading}
-        >
+                    onChange={handleChange}
 
-          {
+                    required
 
-            loading
+                />
 
-              ? "Registering..."
+                <input
 
-              : "Register"
+                    type="email"
 
-          }
+                    name="email"
 
-        </button>
+                    placeholder="Email"
 
-      </form>
+                    value={formData.email}
 
-    </div>
+                    onChange={handleChange}
 
-  );
+                    required
+
+                />
+
+                <input
+
+                    type="password"
+
+                    name="password"
+
+                    placeholder="Password"
+
+                    value={formData.password}
+
+                    onChange={handleChange}
+
+                    required
+
+                />
+
+                <button
+                    type="submit"
+                    disabled={loading}
+                >
+
+                    {
+
+                        loading
+
+                            ? "Registering..."
+
+                            : "Register"
+
+                    }
+
+                </button>
+
+            </form>
+
+        </div>
+
+    );
 
 }
 
