@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import VideoCard from "../VideoCard/VideoCard"
 
 import { getVideos } from '../../services/videoService'
@@ -30,7 +30,7 @@ const VideoGrid = ({
 
                 setVideos(data);
 
-            } catch (error) {
+            } catch {
 
                 setError("Failed to load Videos")
 

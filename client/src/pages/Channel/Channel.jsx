@@ -1,6 +1,6 @@
 import { useEffect, useState, useContext } from "react";
 import { useParams, useNavigate } from "react-router-dom";
-import { AuthContext } from "../../context/AuthContext";
+import { AuthContext } from "../../context/authContext";
 import { getVideosByChannel, deleteVideo } from "../../services/videoService";
 import { getChannelById } from "../../services/channelService";
 import VideoCard from "../../components/VideoCard/VideoCard";
@@ -8,34 +8,37 @@ import VideoCard from "../../components/VideoCard/VideoCard";
 function Channel() {
   const { id } = useParams();
   const navigate = useNavigate();
-  const { isAuthenticated } = useContext(AuthContext);
+  const { user, isAuthenticated } = useContext(AuthContext);
 
   const [channelData, setChannelData] = useState(null);
   const [videos, setVideos] = useState([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    loadVideos();
+    let isMounted = true;
+
+    getChannelById(id)
+      .then(async (channelInfo) => {
+        const data = await getVideosByChannel(channelInfo._id);
+
+        if (isMounted) {
+          setChannelData(channelInfo);
+          setVideos(data);
+        }
+      })
+      .catch((error) => {
+        console.log(error);
+      })
+      .finally(() => {
+        if (isMounted) {
+          setLoading(false);
+        }
+      });
+
+    return () => {
+      isMounted = false;
+    };
   }, [id]);
-
-  const loadVideos = async () => {
-
-    try {
-
-      const channelInfo = await getChannelById(id);
-      setChannelData(channelInfo);
-      const data = await getVideosByChannel(channelInfo._id);
-      setVideos(data);
-    }
-
-    catch (error) {
-      console.log(error);
-    }
-
-    finally {
-      setLoading(false);
-    }
-  };
 
   const handleDelete = async (id) => {
     if (!window.confirm("Delete this video?")) return;
@@ -51,6 +54,9 @@ function Channel() {
   if (loading) {
     return <h2>Loading...</h2>;
   }
+
+  const ownerId = channelData?.owner?._id || channelData?.owner;
+  const isOwner = isAuthenticated && user?.id === ownerId;
 
   return (
     <div className="channel-page">
@@ -89,7 +95,7 @@ function Channel() {
           Total Videos :
           {videos.length}
         </p>
-        {isAuthenticated && (
+        {isOwner && (
           <button
             onClick={() => navigate("/add-video")}
           >
@@ -109,7 +115,7 @@ function Channel() {
 
               <VideoCard video={video} />
 
-              {isAuthenticated && (
+              {isOwner && (
                 <div style={{ display: "flex", gap: "10px", marginTop: "10px" }}>
 
                   <button

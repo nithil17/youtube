@@ -10,16 +10,6 @@ const AdminTable = ({ videos, onDelete }) => {
     );
   }
 
-  const handleDelete = (id) => {
-    const confirmDelete = window.confirm(
-      "Are you sure you want to delete this video?"
-    );
-
-    if (confirmDelete) {
-      onDelete(id);
-    }
-  };
-
   return (
     <table className="admin-table">
       <thead>

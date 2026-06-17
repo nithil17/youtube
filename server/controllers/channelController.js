@@ -15,6 +15,12 @@ export const createChannel = async (req, res) => {
             channelBanner
         } = req.body;
 
+        if (!channelName?.trim() || !description?.trim()) {
+            return res.status(400).json({
+                message: "Channel name and description are required"
+            });
+        }
+
         const existingChannel = await Channel.findOne({
             owner: req.user.id
         });
@@ -29,9 +35,9 @@ export const createChannel = async (req, res) => {
 
         const channel = await Channel.create({
 
-            channelName,
-            description,
-            channelBanner,
+            channelName: channelName.trim(),
+            description: description.trim(),
+            channelBanner: channelBanner?.trim() || "",
             owner: req.user.id
 
         });
@@ -126,9 +132,9 @@ message:"Unauthorized"
 });
 }
 
-channel.channelName=req.body.channelName||channel.channelName;
-channel.description=req.body.description||channel.description;
-channel.channelBanner=req.body.channelBanner||channel.channelBanner;
+channel.channelName=req.body.channelName?.trim()||channel.channelName;
+channel.description=req.body.description?.trim()||channel.description;
+channel.channelBanner=req.body.channelBanner?.trim()||channel.channelBanner;
 
 await channel.save();
 

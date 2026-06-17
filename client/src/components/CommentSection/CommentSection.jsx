@@ -1,5 +1,5 @@
 
-import { useState, useEffect, useContext, useCallback } from "react";
+import { useState, useEffect, useContext } from "react";
 import "./CommentSection.css";
 import {
   getComments,
@@ -7,7 +7,7 @@ import {
   updateComment,
   deleteComment
 } from "../../services/commentService";
-import { AuthContext } from "../../context/AuthContext";
+import { AuthContext } from "../../context/authContext";
 
 function CommentSection({ videoId }) {
 
@@ -18,19 +18,33 @@ function CommentSection({ videoId }) {
   const [editId, setEditId] = useState(null);
 
   // Load comments
-  const loadComments = useCallback(async () => {
+  const loadComments = async () => {
     try {
       const data = await getComments(videoId);
       setComments(data);
     } catch {
       console.log("Failed to load comments");
     }
-  }, [videoId]);
+  };
 
   // Fetch comments whenever video changes
   useEffect(() => {
-    loadComments();
-  }, [loadComments]);
+    let isMounted = true;
+
+    getComments(videoId)
+      .then((data) => {
+        if (isMounted) {
+          setComments(data);
+        }
+      })
+      .catch(() => {
+        console.log("Failed to load comments");
+      });
+
+    return () => {
+      isMounted = false;
+    };
+  }, [videoId]);
 
   // Add comment
   const handleAddComment = async () => {

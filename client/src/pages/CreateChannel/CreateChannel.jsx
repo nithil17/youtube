@@ -12,6 +12,7 @@ function CreateChannel(){
     description:"",
     channelBanner:""
   });
+  const [error,setError]=useState("");
 
   // Update form values
   const handleChange=(event)=>{
@@ -27,18 +28,29 @@ function CreateChannel(){
   const handleSubmit=async(event)=>{
 
     event.preventDefault();
+    setError("");
+
+    if(!formData.channelName.trim()){
+      setError("Channel name is required");
+      return;
+    }
+
+    if(!formData.description.trim()){
+      setError("Description is required");
+      return;
+    }
 
     try{
 
-      await createChannel(formData);
+      const channel = await createChannel(formData);
 
       alert("Channel Created Successfully");
 
-      navigate("/");
+      navigate(`/channel/${channel._id}`);
 
     }catch(error){
 
-      alert(error.message);
+      setError(error.message || "Failed to create channel");
 
     }
 
@@ -48,7 +60,9 @@ function CreateChannel(){
 
     <div className="create-channel-container">
 
-      <h2>Create Channel</h2>
+        <h2>Create Channel</h2>
+
+        {error && <p className="error-text">{error}</p>}
 
       <form
         className="create-channel-form"

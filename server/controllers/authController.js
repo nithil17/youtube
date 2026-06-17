@@ -23,7 +23,10 @@ const registerUser = async (req,res)=>{
 
         } = req.body;
 
-        if(!username || !email || !password){
+        const normalizedUsername = username?.trim();
+        const normalizedEmail = email?.trim().toLowerCase();
+
+        if(!normalizedUsername || !normalizedEmail || !password){
 
             return res.status(400).json({
 
@@ -33,9 +36,27 @@ const registerUser = async (req,res)=>{
 
         }
 
+        if(normalizedUsername.length < 3 || normalizedUsername.length > 30){
+            return res.status(400).json({
+                message:"Username must be 3 to 30 characters"
+            });
+        }
+
+        if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(normalizedEmail)){
+            return res.status(400).json({
+                message:"Enter a valid email"
+            });
+        }
+
+        if(password.length < 6){
+            return res.status(400).json({
+                message:"Password must be at least 6 characters"
+            });
+        }
+
         const existingUser = await User.findOne({
 
-            email
+            email: normalizedEmail
 
         });
 
@@ -59,9 +80,9 @@ const registerUser = async (req,res)=>{
 
         const user = await User.create({
 
-            username,
+            username: normalizedUsername,
 
-            email,
+            email: normalizedEmail,
 
             password:hashedPassword
 
@@ -113,9 +134,15 @@ const loginUser = async (req,res)=>{
 
         } = req.body;
 
+        if(!email || !password){
+            return res.status(400).json({
+                message:"Email and password are required"
+            });
+        }
+
         const user = await User.findOne({
 
-            email
+            email: email.trim().toLowerCase()
 
         });
 
@@ -152,6 +179,10 @@ const loginUser = async (req,res)=>{
             {
 
                 id:user._id,
+
+                username:user.username,
+
+                email:user.email,
 
                 role:user.role
 
@@ -215,9 +246,21 @@ const resetPassword = async (req,res)=>{
 
         } = req.body;
 
+        if(!email || !password){
+            return res.status(400).json({
+                message:"Email and new password are required"
+            });
+        }
+
+        if(password.length < 6){
+            return res.status(400).json({
+                message:"Password must be at least 6 characters"
+            });
+        }
+
         const user = await User.findOne({
 
-            email
+            email: email.trim().toLowerCase()
 
         });
 

@@ -1,4 +1,3 @@
-import React from 'react'
 import "./VideoCard.css"
 import { Link } from 'react-router-dom'
 
@@ -21,7 +20,7 @@ const VideoCard = ({ video }) => {
 
             {video.channel}
 
-            {" • "}
+            {" | "}
 
             {video.views} views
 

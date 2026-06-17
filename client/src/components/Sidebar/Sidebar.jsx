@@ -10,14 +10,13 @@ import {
   FaPlusSquare,
   FaChartBar,
   FaHistory,
-  FaThumbsUp,
   FaSignInAlt,
   FaUserPlus,
   FaSignOutAlt
 } from "react-icons/fa";
 
 // Authentication Context
-import { AuthContext } from "../../context/AuthContext";
+import { AuthContext } from "../../context/authContext";
 
 // Styles
 import "./Sidebar.css";
@@ -90,14 +89,6 @@ const Sidebar=({isSidebarOpen})=>{
             >
               <FaHistory/>
               <span>History</span>
-            </Link>
-
-            <Link
-              to="/"
-              className="sidebar-item"
-            >
-              <FaThumbsUp/>
-              <span>Liked Videos</span>
             </Link>
 
             {/* Logout */}

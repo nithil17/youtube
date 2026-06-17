@@ -1,8 +1,9 @@
-import React, { useContext } from "react";
+import { useContext } from "react";
 import "./Header.css";
 import { FaBars, FaSearch } from "react-icons/fa";
-import { AuthContext } from "../../context/AuthContext";
+import { AuthContext } from "../../context/authContext";
 import { Link, useNavigate } from "react-router-dom";
+import logo from "../../assets/logo.svg";
 
 
 const Header = ({
@@ -33,7 +34,7 @@ const Header = ({
         />
         <Link to="/" className="logo-link">
                 <img
-          src="../../src/assets/logo.svg"
+          src={logo}
           alt="YouTube Clone"
           style={{
             height: "40px",
@@ -58,7 +59,7 @@ const Header = ({
           }
         />
 
-        <button>
+        <button type="button">
           <FaSearch />
         </button>
 

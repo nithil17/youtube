@@ -117,7 +117,7 @@ const VideoPlayer = () => {
 
                         </Link>
 
-                        <span>•</span>
+                        <span>|</span>
 
                         <span>
 
@@ -125,7 +125,7 @@ const VideoPlayer = () => {
 
                         </span>
 
-                        <span>•</span>
+                        <span>|</span>
 
                         <span>
 

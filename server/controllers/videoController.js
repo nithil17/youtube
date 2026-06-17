@@ -1,12 +1,27 @@
 
 import Video from "../models/Video.js";
 import Channel from "../models/Channel.js";
+import Comment from "../models/Comment.js";
+
+const serializeVideo = (video) => {
+  const videoObject = video.toObject ? video.toObject() : video;
+
+  return {
+    ...videoObject,
+    likes: Array.isArray(videoObject.likedBy)
+      ? videoObject.likedBy.length
+      : videoObject.likes || 0,
+    dislikes: Array.isArray(videoObject.dislikedBy)
+      ? videoObject.dislikedBy.length
+      : videoObject.dislikes || 0
+  };
+};
 
 // Get all videos
 const getAllVideos = async (req, res) => {
   try {
     const videos = await Video.find().sort({ createdAt: -1 });
-    res.status(200).json(videos);
+    res.status(200).json(videos.map(serializeVideo));
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
@@ -23,7 +38,7 @@ const getVideoById = async (req, res) => {
       });
     }
 
-    res.status(200).json(video);
+    res.status(200).json(serializeVideo(video));
   } catch (error) {
     res.status(500).json({
       message: error.message
@@ -34,7 +49,21 @@ const getVideoById = async (req, res) => {
 // Add video
 const addVideo = async (req, res) => {
   try {
-    const selectedChannel = await Channel.findById(req.body.channelId);
+    const {
+      title,
+      videoUrl,
+      thumbnail,
+      category,
+      channelId
+    } = req.body;
+
+    if (!title?.trim() || !videoUrl?.trim() || !thumbnail?.trim() || !category?.trim() || !channelId) {
+      return res.status(400).json({
+        message: "Title, video URL, thumbnail, category, and channel are required"
+      });
+    }
+
+    const selectedChannel = await Channel.findById(channelId);
 
     if (!selectedChannel) {
       return res.status(404).json({
@@ -50,15 +79,15 @@ const addVideo = async (req, res) => {
     }
 
     const video = await Video.create({
-      title: req.body.title,
-      description: req.body.description,
-      thumbnail: req.body.thumbnail,
-      videoUrl: req.body.videoUrl,
+      title: title.trim(),
+      description: req.body.description?.trim() || "",
+      thumbnail: thumbnail.trim(),
+      videoUrl: videoUrl.trim(),
       channel: selectedChannel.channelName,
       channelId: selectedChannel._id,
-      uploader: req.user.username || "",
-      category: req.body.category,
-      views: req.body.views || 0,
+      uploader: req.user.username || "User",
+      category: category.trim(),
+      views: Number(req.body.views) || 0,
       owner: req.user.id
     });
 
@@ -68,7 +97,7 @@ const addVideo = async (req, res) => {
       }
     });
 
-    res.status(201).json(video);
+    res.status(201).json(serializeVideo(video));
 
   } catch (error) {
     console.log(error);
@@ -95,11 +124,24 @@ const updateVideo = async (req, res) => {
       });
     }
 
-    Object.assign(video, req.body);
+    const allowedFields = [
+      "title",
+      "description",
+      "thumbnail",
+      "videoUrl",
+      "category",
+      "views"
+    ];
+
+    allowedFields.forEach((field) => {
+      if (req.body[field] !== undefined) {
+        video[field] = req.body[field];
+      }
+    });
 
     await video.save();
 
-    res.status(200).json(video);
+    res.status(200).json(serializeVideo(video));
 
   } catch (error) {
     res.status(500).json({
@@ -129,6 +171,10 @@ const deleteVideo = async (req, res) => {
       $pull: {
         videos: video._id
       }
+    });
+
+    await Comment.deleteMany({
+      videoId: video._id
     });
 
     await Video.findByIdAndDelete(req.params.id);
@@ -177,13 +223,7 @@ const likeVideo = async (req, res) => {
 
     await video.save();
 
-    res.status(200).json({
-
-      ...video.toObject(),
-      likes: video.likedBy.length,
-      dislikes: video.dislikedBy.length
-
-    });
+    res.status(200).json(serializeVideo(video));
 
   } catch (error) {
 
@@ -228,13 +268,7 @@ const dislikeVideo = async (req, res) => {
 
     await video.save();
 
-    res.status(200).json({
-
-      ...video.toObject(),
-      likes: video.likedBy.length,
-      dislikes: video.dislikedBy.length
-
-    });
+    res.status(200).json(serializeVideo(video));
 
   } catch (error) {
 
@@ -253,7 +287,7 @@ const getVideosByChannel = async (req, res) => {
       channelId: req.params.channel
     }).sort({ createdAt: -1 });
 
-    res.status(200).json(videos);
+    res.status(200).json(videos.map(serializeVideo));
 
   } catch (error) {
     res.status(500).json({

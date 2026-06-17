@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { getVideoById, updateVideo } from "../../services/videoService";
+import { categories } from "../../utils/categories";
 import "../AddVideo/AddVideo.css";
 
 function EditVideo() {
@@ -161,12 +162,20 @@ function EditVideo() {
           onChange={handleChange}
         />
 
-        <input
+        <select
           name="category"
-          placeholder="Category"
           value={formData.category}
           onChange={handleChange}
-        />
+        >
+          <option value="">Select Category</option>
+          {categories
+            .filter((category) => category !== "All")
+            .map((category) => (
+              <option key={category} value={category}>
+                {category}
+              </option>
+            ))}
+        </select>
 
         <button type="submit">
           Update Video

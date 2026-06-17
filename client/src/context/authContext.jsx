@@ -1,6 +1,5 @@
-import { createContext, useState, useEffect } from "react";
-
-export const AuthContext = createContext();
+import { useState } from "react";
+import { AuthContext } from "./authContext";
 
 export function AuthProvider({ children }) {
 
@@ -32,21 +31,6 @@ export function AuthProvider({ children }) {
     setUser(null);
 
   };
-
-  useEffect(() => {
-
-    const savedToken = localStorage.getItem("token");
-    const savedUser = localStorage.getItem("user");
-
-    if (savedToken) {
-      setToken(savedToken);
-    }
-
-    if (savedUser) {
-      setUser(JSON.parse(savedUser));
-    }
-
-  }, []);
 
   return (
     <AuthContext.Provider

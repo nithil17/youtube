@@ -1,7 +1,8 @@
 import { useEffect, useState, useContext } from "react";
-import { AuthContext } from "../../context/AuthContext";
+import { AuthContext } from "../../context/authContext";
 import { addVideo } from "../../services/videoService";
 import { getChannels } from "../../services/channelService";
+import { categories } from "../../utils/categories";
 import "./AddVideo.css";
 
 function AddVideo() {
@@ -21,28 +22,22 @@ function AddVideo() {
   const [channels, setChannels] = useState([]);
 
   useEffect(() => {
+    const loadChannels = async () => {
+      try {
+        const data = await getChannels();
+        const ownChannels = data.filter((channel) => {
+          const ownerId = channel.owner?._id || channel.owner;
+          return ownerId === user?.id;
+        });
+
+        setChannels(ownChannels);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+
     loadChannels();
-  }, []);
-
-  // Load only logged-in user's channels
-  const loadChannels = async () => {
-    try {
-
-      const data = await getChannels();
-
-      console.log("Logged in user:", user);
-      console.log("Channels:", data);
-
-      setChannels(data);
-
-      setChannels(data);
-
-    } catch (error) {
-
-      console.log(error);
-
-    }
-  };
+  }, [user?.id]);
 
   // Update form values
   const handleChange = (event) => {
@@ -95,10 +90,7 @@ function AddVideo() {
 
     } catch (error) {
 
-      alert(
-        error.response?.data?.message ||
-        "Failed to add video"
-      );
+      alert(error.message || "Failed to add video");
 
     }
 
@@ -173,12 +165,20 @@ function AddVideo() {
           onChange={handleChange}
         />
 
-        <input
+        <select
           name="category"
-          placeholder="Category"
           value={formData.category}
           onChange={handleChange}
-        />
+        >
+          <option value="">Select Category</option>
+          {categories
+            .filter((category) => category !== "All")
+            .map((category) => (
+              <option key={category} value={category}>
+                {category}
+              </option>
+            ))}
+        </select>
 
         <button type="submit">
 

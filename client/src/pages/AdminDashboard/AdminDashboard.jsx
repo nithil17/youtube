@@ -1,10 +1,12 @@
-import { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+import { useState, useEffect, useContext, useCallback } from "react";
 
 import { getVideos, deleteVideo } from "../../services/videoService";
 import AdminTable from "../../components/AdminTable/AdminTable";
+import { AuthContext } from "../../context/authContext";
 
 const AdminDashboard = () => {
+  const { user } = useContext(AuthContext);
+
   // Stores all videos
   const [videos, setVideos] = useState([]);
 
@@ -14,10 +16,11 @@ const AdminDashboard = () => {
   // Error state
   const [error, setError] = useState("");
 
-  // Load videos when page opens
-  useEffect(() => {
-    loadVideos();
-  }, []);
+  const getOwnVideos = useCallback((allVideos) =>
+    allVideos.filter((video) => {
+      const ownerId = video.owner?._id || video.owner;
+      return ownerId === user?.id;
+    }), [user?.id]);
 
   // Fetch videos from backend
   const loadVideos = async () => {
@@ -26,7 +29,7 @@ const AdminDashboard = () => {
 
       const data = await getVideos();
 
-      setVideos(data);
+      setVideos(getOwnVideos(data));
       setError("");
     } catch (error) {
       setError(error.message || "Failed to load videos");
@@ -34,6 +37,21 @@ const AdminDashboard = () => {
       setLoading(false);
     }
   };
+
+  // Load videos when page opens
+  useEffect(() => {
+    getVideos()
+      .then((data) => {
+        setVideos(getOwnVideos(data));
+        setError("");
+      })
+      .catch((error) => {
+        setError(error.message || "Failed to load videos");
+      })
+      .finally(() => {
+        setLoading(false);
+      });
+  }, [getOwnVideos]);
 
   // Delete a video
   const handleDelete = async (id) => {

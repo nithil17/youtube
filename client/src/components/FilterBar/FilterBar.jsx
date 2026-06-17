@@ -1,7 +1,5 @@
-import React from 'react'
 import "./FilterBar.css"
 import { categories } from '../../utils/categories'
-import { useState } from 'react'
 
 const FilterBar = ({
 
